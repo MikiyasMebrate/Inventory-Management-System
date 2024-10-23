@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
 
-//@desc Get all users
-//@route GET /api/users
+//@desc Register user
+//@route POST /api/register
 //@access public
 const registerUser = [
   check("firstName")
@@ -73,8 +73,8 @@ const registerUser = [
   }),
 ];
 
-//@desc Get all users
-//@route GET /api/users
+//@desc login 
+//@route POST /api/login
 //@access public
 const loginUser = [
   check("email").isEmail().withMessage("Please provide a valid email address"),
@@ -99,28 +99,43 @@ const loginUser = [
 
     // Extract validated data
     const { email, password } = req.body;
-    const user = User.findOne({ email })
+    const user = await User.findOne({ email })
+
 
     //password compare
     if (user && (await bcrypt.compare(password, user.password))) {
+
       const accessToken = jwt.sign({
         //payload
         user: {
           email: user.email,
-          id: user.id,
-          role: user.role
+          id: user.id
         }
-      })
+      },
+        //access token
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: '15m' }
+      )
+
+      res.status(200).json({ accessToken })
+    } else {
+      res.status(401)
+      throw new Error("email or password is not valid!")
     }
-
-
-    res.status(200).json({ message: "login" })
-
 
   })
 ]
 
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({})
+  res.status(200).json(users)
+})
+
+
+
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  getAllUsers
 };
