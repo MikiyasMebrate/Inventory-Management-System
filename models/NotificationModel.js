@@ -1,9 +1,34 @@
 const mongoose = require('mongoose');
 
-const notificationSchema = mongoose.Schema({
-    message: {
-        type: String,
-        required: true,
+const notificationPreferenceSchema = mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    receiveSaleNotifications: {
+        type: Boolean,
+        default: true
+    },
+    receiveRestockNotifications: {
+        type: Boolean,
+        default: true
+    },
+    receiveReturnNotifications: {
+        type: Boolean,
+        default: true
+    },
+    receiveProductNotifications: {
+        type: Boolean,
+        default: true
+    },
+    receiveCategoryNotifications: {
+        type: Boolean,
+        default: true
+    },
+    read: {
+        type: Boolean,
+        default: false,
     },
     createdAt: {
         type: Date,
@@ -11,4 +36,4 @@ const notificationSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Notification', notificationSchema);
+module.exports = mongoose.model('NotificationPreference', notificationPreferenceSchema);
