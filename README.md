@@ -36,3 +36,14 @@ An API-based Inventory Management System built with Node.js, Express, and MongoD
    ```bash
    npm install
 
+3. **Create a .env file in the root directory and add the following environment variables:**:
+   ```bash
+   PORT=5000
+   DATABASE_SERVER=mongodb://localhost:27017/Inventory-Management-System
+   ACCESS_TOKEN_SECRET=mike123
+
+4. **Run the application:**:
+   ```bash
+   npm run dev
+
+
