@@ -2,6 +2,7 @@ const { check, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const Product = require('../models/productModel')
 const Category = require("../models/categoryModel")
+const NotificationPreference = require('../models/notificationPreference')
 const createNotification = require("../services/notificationService")
 
 /**
@@ -89,7 +90,17 @@ const createProduct = [
 
         if (product) {
             res.status(201).json(product)
-            createNotification(`New Product add : ${product.name}`)
+
+            //notification
+            const users = await User.find()
+            for (const user of users) {
+                const preferences = await NotificationPreference.findOne({ user: user._id }).lean();
+
+                // Check if the user wants product notifications
+                if (preferences && preferences.receiveProductNotifications) {
+                    await createNotification(user._id, `New Product added: ${product.name}`); // Add notification
+                }
+            }
         } else {
             res.status(400)
             throw new Error("product data is not valid")
@@ -119,7 +130,16 @@ const deleteProduct = asyncHandler(async (req, res) => {
     }
 
     await product.deleteOne()
-    createNotification(`Product deleted : ${product.name}`)
+    //notification
+    const users = await User.find()
+    for (const user of users) {
+        const preferences = await NotificationPreference.findOne({ user: user._id }).lean();
+
+        // Check if the user wants product notifications
+        if (preferences && preferences.receiveProductNotifications) {
+            await createNotification(user._id, `Product deleted: ${product.name}`); // Add notification
+        }
+    }
     res.status(200).json(product)
 })
 
@@ -193,7 +213,16 @@ const updateProduct = [
             { new: true }
         )
 
-        createNotification(`Product updated : ${updatedProduct.name}`)
+        //notification
+        const users = await User.find()
+        for (const user of users) {
+            const preferences = await NotificationPreference.findOne({ user: user._id }).lean();
+
+            // Check if the user wants product notifications
+            if (preferences && preferences.receiveProductNotifications) {
+                await createNotification(user._id, `Product updated: ${updatedProduct.name}`); // Add notification
+            }
+        }
 
         res.status(200).json(updatedProduct)
     })

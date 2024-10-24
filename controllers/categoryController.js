@@ -1,7 +1,9 @@
 const { check, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/categoryModel")
+const User = require("../models/userModel")
 const createNotification = require("../services/notificationService")
+const NotificationPreference = require('../models/notificationPreference')
 
 
 /**
@@ -54,7 +56,17 @@ const createCategory = [
 
         const category = await Category.create({ name, description, icon })
         if (category) {
-            await createNotification(`New product added: ${category.name}`); //add notification
+            // Retrieve all users and their notification preferences
+            const users = await User.find()
+            for (const user of users) {
+                const preferences = await NotificationPreference.findOne({ user: user._id }).lean();
+
+                // Check if the user wants category notifications
+                if (preferences && preferences.receiveCategoryNotifications) {
+                    await createNotification(user._id, `New category added: ${category.name}`); // Add notification
+                }
+            }
+
             res.status(201).json(category)
         } else {
             res.status(400)
@@ -117,7 +129,18 @@ const updateCategory = [
             req.body,
             { new: true } // return the updated element
         )
-        await createNotification(`category updated to: ${updatedCategory.name}`);
+
+        //notification
+        const users = await User.find()
+        for (const user of users) {
+            const preferences = await NotificationPreference.findOne({ user: user._id }).lean();
+
+            // Check if the user wants category notifications
+            if (preferences && preferences.receiveCategoryNotifications) {
+                await createNotification(user._id, `Category updated: ${updatedCategory.name}`); // Add notification
+            }
+        }
+
 
         res.status(200).json(updatedCategory)
     })
@@ -128,7 +151,6 @@ const updateCategory = [
  * @route DELETE /api/category/id
  * @access private
  */
-
 const deleteCategory = asyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id)
 
@@ -138,7 +160,17 @@ const deleteCategory = asyncHandler(async (req, res) => {
     }
 
     await category.deleteOne()
-    await createNotification(`category deleted : ${category.name}`);
+
+    //notification
+    const users = await User.find()
+    for (const user of users) {
+        const preferences = await NotificationPreference.findOne({ user: user._id }).lean();
+
+        // Check if the user wants category notifications
+        if (preferences && preferences.receiveCategoryNotifications) {
+            await createNotification(user._id, `Category deleted: ${category.name}`); // Add notification
+        }
+    }
     res.status(200).json(category)
 })
 

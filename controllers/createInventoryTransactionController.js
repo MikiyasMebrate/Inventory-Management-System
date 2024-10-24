@@ -2,7 +2,9 @@ const { check, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const createNotification = require("../services/notificationService")
 const Product = require('../models/productModel')
+const User = require("../models/userModel")
 const InventoryTransaction = require('../models/inventoryTransactionModel')
+const NotificationPreference = require('../models/notificationPreference')
 
 
 
@@ -87,19 +89,20 @@ const createInventoryTransaction = [
         }
 
         // Update product quantity based on action type
+        let notification = ''
         switch (actionType) {
             case 'sale':
                 productRecord.quantityInStock -= quantity;
-                createNotification(`Product sold: ${productRecord.name}, Quantity: ${quantity}`)
+                notification = `Product sold: ${productRecord.name}, Quantity: ${quantity}`
                 break;
             case 'restock':
                 productRecord.quantityInStock += Number(quantity);
                 productRecord.price = priceAtTransaction
-                createInventoryTransaction(`Product restocked: ${productRecord.name}, Quantity: ${quantity}, New Price: ${priceAtTransaction}`)
+                notification = `Product restocked: ${productRecord.name}, Quantity: ${quantity}, New Price: ${priceAtTransaction}`
                 break;
             case 'return':
                 productRecord.quantityInStock += Number(quantity);
-                createNotification(`Product returned: ${productRecord.name}, Quantity: ${quantity}`)
+                notification = `Product returned: ${productRecord.name}, Quantity: ${quantity}`
                 break;
             default:
                 return res.status(400).json({ message: 'Invalid action type' });
@@ -107,6 +110,17 @@ const createInventoryTransaction = [
 
         // Save the updated product record
         await productRecord.save();
+
+        //notification
+        const users = await User.find()
+        for (const user of users) {
+            const preferences = await NotificationPreference.findOne({ user: user._id }).lean();
+
+            // Check if the user wants product notifications
+            if (preferences && (preferences.receiveSaleNotifications || preferences.receiveRestockNotifications || preferences.receiveReturnNotifications)) {
+                await createNotification(user._id, notification); // Add notification
+            }
+        }
 
         // Respond with the created transaction and updated product details
         res.status(201).json({

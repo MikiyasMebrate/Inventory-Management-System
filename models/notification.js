@@ -14,11 +14,6 @@ const notificationSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    actionType: {
-        type: String,
-        enum: ['sale', 'restock', 'return', 'product', 'category'],
-        required: true
-    },
     isRead: {
         type: Boolean,
         default: false
