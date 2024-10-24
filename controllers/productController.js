@@ -2,6 +2,7 @@ const { check, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const Product = require('../models/productModel')
 const Category = require("../models/categoryModel")
+const createNotification = require("../services/notificationService")
 
 /**
  * @desc Get all products
@@ -88,6 +89,7 @@ const createProduct = [
 
         if (product) {
             res.status(201).json(product)
+            createNotification(`New Product add : ${product.name}`)
         } else {
             res.status(400)
             throw new Error("product data is not valid")
@@ -117,6 +119,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
     }
 
     await product.deleteOne()
+    createNotification(`Product deleted : ${product.name}`)
     res.status(200).json(product)
 })
 
@@ -189,6 +192,8 @@ const updateProduct = [
             req.body,
             { new: true }
         )
+
+        createNotification(`Product updated : ${updatedProduct.name}`)
 
         res.status(200).json(updatedProduct)
     })

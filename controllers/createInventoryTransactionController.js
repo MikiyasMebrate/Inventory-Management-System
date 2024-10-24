@@ -1,5 +1,6 @@
 const { check, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
+const createNotification = require("../services/notificationService")
 const Product = require('../models/productModel')
 const InventoryTransaction = require('../models/inventoryTransactionModel')
 
@@ -89,13 +90,16 @@ const createInventoryTransaction = [
         switch (actionType) {
             case 'sale':
                 productRecord.quantityInStock -= quantity;
+                createNotification(`Product sold: ${productRecord.name}, Quantity: ${quantity}`)
                 break;
             case 'restock':
                 productRecord.quantityInStock += Number(quantity);
                 productRecord.price = priceAtTransaction
+                createInventoryTransaction(`Product restocked: ${productRecord.name}, Quantity: ${quantity}, New Price: ${priceAtTransaction}`)
                 break;
             case 'return':
                 productRecord.quantityInStock += Number(quantity);
+                createNotification(`Product returned: ${productRecord.name}, Quantity: ${quantity}`)
                 break;
             default:
                 return res.status(400).json({ message: 'Invalid action type' });

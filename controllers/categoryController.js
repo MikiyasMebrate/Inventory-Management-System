@@ -1,6 +1,7 @@
 const { check, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/categoryModel")
+const createNotification = require("../services/notificationService")
 
 
 /**
@@ -53,6 +54,7 @@ const createCategory = [
 
         const category = await Category.create({ name, description, icon })
         if (category) {
+            await createNotification(`New product added: ${category.name}`); //add notification
             res.status(201).json(category)
         } else {
             res.status(400)
@@ -115,6 +117,7 @@ const updateCategory = [
             req.body,
             { new: true } // return the updated element
         )
+        await createNotification(`category updated to: ${updatedCategory.name}`);
 
         res.status(200).json(updatedCategory)
     })
@@ -135,6 +138,7 @@ const deleteCategory = asyncHandler(async (req, res) => {
     }
 
     await category.deleteOne()
+    await createNotification(`category deleted : ${category.name}`);
     res.status(200).json(category)
 })
 
