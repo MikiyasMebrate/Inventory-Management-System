@@ -35,7 +35,6 @@ const createCategory = [
             return res.status(400).json({ errors: errors.array() });
         }
 
-
         //get elements
         const { name, description, icon } = req.body
 
@@ -58,9 +57,8 @@ const createCategory = [
     })
 ]
 
-
 //@desc add  category
-//@route POST /api/category/id
+//@route PUT /api/category/id
 //@access private
 const updateCategory = [
     check("name")
@@ -89,8 +87,6 @@ const updateCategory = [
             throw new Error("Category not Found!")
         }
 
-        console.log("user-----", req.user)
-
         const updatedCategory = await Category.findByIdAndUpdate(
             req.params.id,
             req.body,
@@ -101,9 +97,24 @@ const updateCategory = [
     })
 ]
 
+//@desc delete  category
+//@route DELETE /api/category/id
+//@access private
+const deleteCategory = asyncHandler(async (req, res) => {
+    const category = await Category.findById(req.params.id)
+
+    if (!category) {
+        res.status(404)
+        throw new Error("Category not found!")
+    }
+
+    await category.deleteOne()
+    res.status(200).json(category)
+})
 
 module.exports = {
     getCategories,
     createCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }
