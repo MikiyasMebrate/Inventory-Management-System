@@ -11,6 +11,8 @@ const getCategories = asyncHandler(async (req, res) => {
     res.status(200).json(categories)
 })
 
+
+
 //@desc add  category
 //@route POST /api/category
 //@access private
@@ -39,16 +41,16 @@ const createCategory = [
         const { name, description, icon } = req.body
 
 
-        //check if the product is available
-        const productAvailable = await Category.findOne({ name });
-        if (productAvailable) {
+        //check if the category is available
+        const categoryAvailable = await Category.findOne({ name });
+        if (categoryAvailable) {
             res.status(400);
             throw new Error("Category already registered!");
         }
 
         const category = await Category.create({ name, description, icon })
         if (category) {
-            res.status(200).json(category)
+            res.status(201).json(category)
         } else {
             res.status(400)
             throw new Error("category data is not valid")
@@ -56,6 +58,20 @@ const createCategory = [
 
     })
 ]
+
+//@desc Get category
+//@route GET /api/category/id
+//@access private
+const getCategory = asyncHandler(async (req, res) => {
+    const category = await Category.findById(req.params.id)
+
+    if (!category) {
+        res.status(404)
+        throw new Error("Category not found!")
+    }
+
+    res.status(200).json(category)
+})
 
 //@desc add  category
 //@route PUT /api/category/id
@@ -116,5 +132,6 @@ module.exports = {
     getCategories,
     createCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getCategory,
 }
