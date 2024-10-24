@@ -25,7 +25,11 @@ const inventoryTransactionSchema = mongoose.Schema({
         type: Number,
         min: [0, 'Price cannot be negative'], // Custom error message for price
     },
-})
+},
+    {
+        timestamps: true
+    }
+)
 
 
 // Pre-save hook to validate priceAtTransaction

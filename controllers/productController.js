@@ -194,6 +194,12 @@ const updateProduct = [
     })
 ]
 
+/**
+ * @desc update product
+ * @route PUT /api/product/id
+ * @access private
+ */
+
 module.exports = {
     getProducts,
     createProduct,
