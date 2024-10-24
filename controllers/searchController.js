@@ -39,8 +39,8 @@ const searchCategory = asyncHandler(async (req, res) => {
 
 
 /**
- * @desc Get search products
- * @route GET /api/search/category?product=
+ * @desc Get search products by category name
+ * @route GET /api/search/category?cate=
  * @access private
  */
 const searchProduct = asyncHandler(async (req, res) => {
