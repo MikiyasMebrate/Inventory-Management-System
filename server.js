@@ -12,6 +12,7 @@ app.use('/api/user', require('./routes/userRoutes'))
 app.use('/api/category', require('./routes/categoryRoutes'))
 app.use(errorHandler)
 
+
 const server = app.listen(process.env.PORT, () => {
     console.log(`Server running on http://localhost:${server.address().port}/`)
 })

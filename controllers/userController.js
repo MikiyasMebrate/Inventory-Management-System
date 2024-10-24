@@ -109,7 +109,8 @@ const loginUser = [
         //payload
         user: {
           email: user.email,
-          id: user.id
+          id: user.id,
+          role: user.role,
         }
       },
         //access token

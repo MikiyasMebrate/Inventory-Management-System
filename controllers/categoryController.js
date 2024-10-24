@@ -35,8 +35,10 @@ const createCategory = [
             return res.status(400).json({ errors: errors.array() });
         }
 
+
         //get elements
         const { name, description, icon } = req.body
+
 
         //check if the product is available
         const productAvailable = await Category.findOne({ name });
@@ -56,7 +58,52 @@ const createCategory = [
     })
 ]
 
+
+//@desc add  category
+//@route POST /api/category/id
+//@access private
+const updateCategory = [
+    check("name")
+        .notEmpty()
+        .withMessage("name is required")
+        .isLength({ min: 3 })
+        .withMessage("name must be at least 3 characters long"),
+    check("description")
+        .optional()
+        .isLength({ min: 5 })
+        .withMessage("description must be at least 5 characters long"),
+    check("icon")
+        .optional(),
+    asyncHandler(async (req, res) => {
+        // Get validation result from request
+        const errors = validationResult(req);
+
+        // If there are validation errors
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const category = await Category.findById(req.params.id)
+        if (!category) {
+            res.status(404)
+            throw new Error("Category not Found!")
+        }
+
+        console.log("user-----", req.user)
+
+        const updatedCategory = await Category.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true } // return the updated element
+        )
+
+        res.status(200).json(updatedCategory)
+    })
+]
+
+
 module.exports = {
     getCategories,
-    createCategory
+    createCategory,
+    updateCategory
 }
