@@ -1,9 +1,9 @@
 const express = require('express')
 const validateTokenHandler = require('../middleware/validateTokenHandler')
-const { getNotifications } = require('../controllers/notificationController')
+const { getNotification } = require("../controllers/notificationController")
 
 const router = express.Router()
 
-router.route('/').get(validateTokenHandler, getNotifications)
+router.route('/').get(validateTokenHandler, getNotification)
 
 module.exports = router

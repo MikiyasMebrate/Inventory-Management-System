@@ -1,16 +1,21 @@
-const Notification = require('../models/NotificationModel')
 const asyncHandler = require("express-async-handler");
+const Notification = require("../models/notification")
 
 /**
- * @desc Get all notifications
- * @route GET /api/notifications
+ * @desc Get user notification preference
+ * @route GET /api/notifications/preference
  * @access public
  */
-const getNotifications = asyncHandler(async (req, res) => {
-    const notifications = await Notification.find().sort({ createdAt: -1 }).lean();
-    res.status(200).json(notifications);
-});
+const getNotification = asyncHandler(async (req, res) => {
+    const notifications = await Notification.find({ user: req.user.id })
+
+    if (!notifications || notifications.length === 0) {
+        return res.status(404).json({ message: "No notifications found!" });
+    }
+
+    res.status(200).json(notifications)
+})
 
 module.exports = {
-    getNotifications
+    getNotification
 }

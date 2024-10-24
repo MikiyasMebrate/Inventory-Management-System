@@ -13,7 +13,8 @@ app.use('/api/category', require('./routes/categoryRoutes'))
 app.use('/api/product', require('./routes/productRoutes'))
 app.use('/api/inventory-transactions', require('./routes/inventoryTransactionRoutes'))
 app.use('/api/search', require('./routes/searchRoutes'))
-app.use('/api/notifications', require('./routes/notificationRoutes'))
+app.use('/api/notifications/preference', require('./routes/notificationPreferenceRoutes'))
+app.use('/api/notifications', require('./routes/notificationRouter'))
 app.use(errorHandler)
 
 

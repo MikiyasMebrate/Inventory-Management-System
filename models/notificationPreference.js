@@ -26,10 +26,6 @@ const notificationPreferenceSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
-    read: {
-        type: Boolean,
-        default: false,
-    },
     createdAt: {
         type: Date,
         default: Date.now,
