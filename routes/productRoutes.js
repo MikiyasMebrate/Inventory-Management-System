@@ -1,5 +1,10 @@
 const express = require('express')
-const { getProducts, createProduct, deleteProduct } = require('../controllers/productController')
+const {
+    getProducts,
+    createProduct,
+    deleteProduct,
+    updateProduct,
+} = require('../controllers/productController')
 const validateTokenHandler = require('../middleware/validateTokenHandler')
 const roleMiddleware = require('../middleware/roleMiddleware')
 
@@ -11,6 +16,7 @@ router.route('/')
 
 router.route('/:id')
     .delete(validateTokenHandler, roleMiddleware(['storekeeper']), deleteProduct)
+    .put(validateTokenHandler, roleMiddleware(['storekeeper']), updateProduct)
 
 
 module.exports = router

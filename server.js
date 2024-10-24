@@ -11,6 +11,7 @@ app.use(express.json()) // for req.body
 app.use('/api/user', require('./routes/userRoutes'))
 app.use('/api/category', require('./routes/categoryRoutes'))
 app.use('/api/product', require('./routes/productRoutes'))
+app.use('/api/inventory-transactions', require('./routes/inventoryTransactionRoutes'))
 app.use(errorHandler)
 
 

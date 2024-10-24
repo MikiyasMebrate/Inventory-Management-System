@@ -3,19 +3,22 @@ const asyncHandler = require("express-async-handler");
 const Category = require("../models/categoryModel")
 
 
-//@desc Get all categories
-//@route GET /api/category
-//@access private
+/**
+ * @desc Get all categories
+ * @route GET /api/category
+ * @access private
+ */
 const getCategories = asyncHandler(async (req, res) => {
     const categories = await Category.find({})
     res.status(200).json(categories)
 })
 
 
-
-//@desc add  category
-//@route POST /api/category
-//@access private
+/**
+ * @desc add  category
+ * @route POST /api/category
+ * @access private
+ */
 const createCategory = [
     check("name")
         .notEmpty()
@@ -59,9 +62,11 @@ const createCategory = [
     })
 ]
 
-//@desc Get category
-//@route GET /api/category/id
-//@access private
+/**
+ * @desc Get category
+ * @route GET /api/category/id
+ * @access private
+ */
 const getCategory = asyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id)
 
@@ -73,9 +78,11 @@ const getCategory = asyncHandler(async (req, res) => {
     res.status(200).json(category)
 })
 
-//@desc add  category
-//@route PUT /api/category/id
-//@access private
+/**
+ * @desc add  category
+ * @route PUT /api/category/id
+ * @access private
+ */
 const updateCategory = [
     check("name")
         .notEmpty()
@@ -113,9 +120,12 @@ const updateCategory = [
     })
 ]
 
-//@desc delete  category
-//@route DELETE /api/category/id
-//@access private
+/**
+ * @desc delete  category
+ * @route DELETE /api/category/id
+ * @access private
+ */
+
 const deleteCategory = asyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id)
 
