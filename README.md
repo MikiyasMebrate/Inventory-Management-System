@@ -103,7 +103,7 @@ This documentation covers the API routes in the inventory management system, inc
 |-----------------------------------|--------|-------------------------------|------------------------|
 | `/api/search/category`            | GET    | Search categories             | None                   |
 | `/api/search/product`             | GET    | Search products               | None                   |
-| `/api/search/product-cat-name`    | GET    | Search products by category name | None               |
+| `/api/search/product-cat-name`    | GET    | Search products by category name | None                |
 
 ### Notification Preference Routes
 
@@ -131,5 +131,8 @@ This documentation covers the API routes in the inventory management system, inc
 This documentation covers all main routes used for API functionality, including user authentication, product management, inventory transactions, and notification preferences.
 
 
+## Contact
+For questions or issues, feel free to reach out:
 
-
+-   **Email**: mikiyasmebrate@gmail.com
+-   **GitHub**: [MikiyasMebrate](https://github.com/MikiyasMebrate)
