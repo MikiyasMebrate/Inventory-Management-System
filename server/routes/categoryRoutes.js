@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.route('/')
     .get(validateTokenHandler, getCategories)
-    .post(validateTokenHandler, createCategory)
+    .post(validateTokenHandler, roleMiddleware(['storekeeper']), createCategory)
 
 router.route('/:id')
     .put(
