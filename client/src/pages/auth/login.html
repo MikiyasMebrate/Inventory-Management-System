@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../output.css" rel="stylesheet">
+    <link href="../../output.css" rel="stylesheet">
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body>
     <div class="w-full flex flex-col md:flex-row items-center justify-center h-screen">
-        <div class="flex flex-col md:flex-row  w-3/5 bg-gray-200 p-20 rounded-2xl">
+        <div class="flex  flex-col md:flex-row  w-3/5 bg-blue-50 p-20 rounded-2xl">
 
             <!--Vector animation start-->
             <div class="hidden md:block md:w-1/2 ">
@@ -22,40 +22,38 @@
 
             <!--Vector animation end-->
 
-            <div class="md:w-1/2 border ">
+            <div class="md:w-1/2  ">
                 <div>
                     <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
 
                     <!-- Login Form -->
                     <form action="#" method="POST">
                         <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email
+                            <label for="email" class="form-label">Email
                                 Address</label>
-                            <input type="email" id="email" name="email" required
-                                class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                            <input type="email" id="email" name="email" required class="form-input"
                                 placeholder="Enter your email" />
                         </div>
 
                         <div class="mb-6">
-                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                            <input type="password" id="password" name="password" required
-                                class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" required class="form-input"
                                 placeholder="Enter your password" />
                         </div>
 
                         <div class="flex justify-between items-center mb-4">
                             <div>
                                 <input type="checkbox" id="remember" name="remember"
-                                    class="h-4 w-4 text-indigo-500 border-gray-300 rounded" />
+                                    class="h-4 w-4 text-indigo-700 border-gray-300 rounded" />
                                 <label for="remember" class="text-sm text-gray-600">Remember
                                     me</label>
                             </div>
-                            <a href="#" class="text-sm text-indigo-500 hover:text-indigo-700">Forgot
+                            <a href="#" class="text-sm text-indigo-700 hover:text-indigo-700">Forgot
                                 password?</a>
                         </div>
 
                         <button type="submit"
-                            class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            class="w-full bg-indigo-900 text-white p-3 rounded-lg font-semibold hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             Login
                         </button>
 
