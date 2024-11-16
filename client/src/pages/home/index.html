@@ -247,17 +247,18 @@
                 <p class="text-gray-600 my-3">Trends and Visual Insights</p>
                 <div class="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-2">
                     <!--Bar Chart-->
-                    <div class="border border-gray-200 rounded-lg shadow">
+                    <div class="  rounded-lg shadow">
                         <p class="p-6 text-gray-400">Top Categories</p>
                         <div id="barChart"></div>
                     </div>
 
                     <!--Table-->
-                    <div class="border gap-4 border-gray-200 rounded-lg shadow">
+                    <div class=" gap-4  rounded-lg shadow">
 
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <p class="p-6 text-gray-400">Top Products</p>
                             <table class="w-full text-sm text-left rtl:text-right">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <thead class="text-xs text-gray-50 uppercase bg-indigo-900">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
                                             Product name
@@ -274,7 +275,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Apple MacBook Pro 17"
                                         </th>
@@ -288,7 +289,7 @@
                                             4
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Office Chair Ergonomic
                                         </th>
@@ -302,7 +303,7 @@
                                             12
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Nike Running Shoes
                                         </th>
@@ -316,7 +317,7 @@
                                             20
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Organic Almonds 1kg
                                         </th>
@@ -330,7 +331,7 @@
                                             50
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Samsung Galaxy S23 Ultra
                                         </th>
@@ -344,7 +345,7 @@
                                             8
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Luxury Sofa Set
                                         </th>
@@ -358,7 +359,7 @@
                                             2
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Head & Shoulders Shampoo
                                         </th>
@@ -372,7 +373,7 @@
                                             100
                                         </td>
                                     </tr>
-                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                    <tr class=" border-b">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             Michelin Car Tires
                                         </th>
@@ -396,6 +397,61 @@
                     </div>
                 </div>
             </section>
+
+            <section class="mt-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+                    <div>
+
+                        <div class="w-full  bg-white border border-gray-200 rounded-lg shadow">
+                            <div class="flex flex-col items-center pb-10 pt-10">
+                                <img class="w-1/2" src="../../assets/utility/Ecommerce web page-rafiki.svg"
+                                    alt="sold item img">
+                                <p class="text-gray-400">Sold Products</p>
+                                <h1 class="text-4xl  font-bold">10</h1>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <div class="w-full  bg-white border border-gray-200 rounded-lg shadow">
+                            <div class="flex flex-col items-center pb-10 pt-10">
+                                <img class="w-1/2" src="../../assets/utility/Checking boxes-amico.svg"
+                                    alt="sold item img">
+                                <p class="text-gray-400">Restocked Products</p>
+                                <h1 class="text-4xl  font-bold">46</h1>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <div class="w-full  bg-white border border-gray-200 rounded-lg shadow">
+                            <div class="flex flex-col items-center pb-10 pt-10">
+                                <img class="w-1/2" src="../../assets/utility/Supermarket workers-rafiki.svg"
+                                    alt="sold item img">
+                                <p class="text-gray-400">Returned Products</p>
+                                <h1 class="text-4xl  font-bold">2</h1>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </section>
+
+            <!--Trends and Visual Insights-->
+            <section class="mt-10">
+                <div id="lineChart"></div>
+            </section>
+
+
         </div>
     </div>
 
@@ -406,7 +462,7 @@
 <script>
     var options = {
         series: [{
-            name: 'Servings',
+            name: 'Sold Products',
             data: [44, 55, 41, 67, 22, 22]
         }],
 
@@ -470,6 +526,82 @@
     };
 
     var chart = new ApexCharts(document.querySelector("#barChart"), options);
+    chart.render();
+
+    var options = {
+        series: [{
+            name: "STOCK ABC",
+            data: [
+                [Date.parse("2024-10-18"), 120],
+                [Date.parse("2024-10-19"), 125],
+                [Date.parse("2024-10-20"), 118],
+                [Date.parse("2024-10-21"), 130],
+                [Date.parse("2024-10-22"), 128],
+                [Date.parse("2024-10-23"), 135],
+                [Date.parse("2024-10-24"), 138],
+                [Date.parse("2024-10-25"), 133],
+                [Date.parse("2024-10-26"), 140],
+                [Date.parse("2024-10-27"), 145],
+                [Date.parse("2024-10-28"), 142],
+                [Date.parse("2024-10-29"), 150],
+                [Date.parse("2024-10-30"), 148],
+                [Date.parse("2024-10-31"), 153],
+                [Date.parse("2024-11-01"), 160],
+                [Date.parse("2024-11-02"), 155],
+                [Date.parse("2024-11-03"), 162],
+                [Date.parse("2024-11-04"), 158],
+                [Date.parse("2024-11-05"), 165],
+                [Date.parse("2024-11-06"), 168],
+                [Date.parse("2024-11-07"), 170],
+                [Date.parse("2024-11-08"), 167],
+                [Date.parse("2024-11-09"), 175],
+                [Date.parse("2024-11-10"), 172],
+                [Date.parse("2024-11-11"), 180],
+                [Date.parse("2024-11-12"), 178],
+                [Date.parse("2024-11-13"), 185],
+                [Date.parse("2024-11-14"), 190],
+                [Date.parse("2024-11-15"), 188],
+                [Date.parse("2024-11-16"), 195]
+            ]
+        }],
+        chart: {
+            type: 'area',
+            height: 350,
+            zoom: {
+                enabled: false
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        colors: ['#312E81'],
+
+        title: {
+            text: 'Stock Analysis',
+            align: 'left'
+        },
+        subtitle: {
+            text: 'Quantity movements',
+            align: 'left'
+        },
+        xaxis: {
+            type: 'datetime',
+            labels: {
+                format: 'MMM dd' // Format the dates nicely on the X-axis
+            }
+        },
+        yaxis: {
+            opposite: true
+        },
+        legend: {
+            horizontalAlign: 'left'
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#lineChart"), options);
     chart.render();
 
 
