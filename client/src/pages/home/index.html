@@ -160,15 +160,16 @@
     <!-- Main content -->
     <div class="p-4 sm:ml-64">
         <div class="p-4 rounded-lg mt-14">
-            <div class="grid lg:grid-cols-4 grid-cols-1 gap-4 mb-4">
+            <!--Key Metrics (KPIs) Section-->
+            <section class="grid grid-cols-1  gap-4 mb-4  md:grid-cols-2 xl:grid-cols-4 ">
                 <!-- Card 1 -->
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="flex flex-row items-center justify-center">
-                        <div class="w-3/4">
+                <div class="block md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                    <div class="flex flex-row justify-between gap-2">
+                        <div class="w-100">
                             <h5 class="mb-2 text-xl  tracking-tight text-gray-400">Total Category</h5>
                             <h1 class=" text-3xl font-bold">10</h1>
                         </div>
-                        <div class="w-1/4">
+                        <div class="w-100">
                             <div class="bg-indigo-900 p-4  rounded  flex items-center justify-center text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                     class="bi bi-backpack4-fill" viewBox="0 0 16 16">
@@ -183,13 +184,13 @@
                 </div>
 
                 <!-- Card 1 -->
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="flex flex-row items-center justify-center">
-                        <div class="w-3/4">
+                <div class="block md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                    <div class="flex flex-row justify-between gap-2">
+                        <div class="w-100">
                             <h5 class="mb-2 text-xl  tracking-tight text-gray-400">Total Product</h5>
                             <h1 class=" text-3xl font-bold">342</h1>
                         </div>
-                        <div class="w-1/4">
+                        <div class="w-100">
                             <div class="bg-indigo-900 p-4  rounded  flex items-center justify-center text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                     class="bi bi-bag-dash-fill" viewBox="0 0 16 16">
@@ -202,13 +203,13 @@
                 </div>
 
                 <!-- Card 1 -->
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="flex flex-row items-center justify-center">
-                        <div class="w-3/4">
+                <div class="block md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                    <div class="flex flex-row justify-between gap-2">
+                        <div class="w-100">
                             <h5 class="mb-2 text-xl  tracking-tight text-gray-400">Products in Stock</h5>
                             <h1 class=" text-3xl font-bold">232</h1>
                         </div>
-                        <div class="w-1/4">
+                        <div class="w-100">
                             <div class="bg-indigo-900 p-4  rounded  flex items-center justify-center text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                     class="bi bi-shop-window" viewBox="0 0 16 16">
@@ -221,13 +222,13 @@
                 </div>
 
                 <!-- Card 1 -->
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                    <div class="flex flex-row items-center justify-center">
-                        <div class="w-3/4">
+                <div class="block md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+                    <div class="flex flex-row justify-between gap-2">
+                        <div class="w-100">
                             <h5 class="mb-2 text-xl  tracking-tight text-gray-400">Active Products</h5>
                             <h1 class=" text-3xl font-bold">230</h1>
                         </div>
-                        <div class="w-1/4">
+                        <div class="w-100">
                             <div class="bg-indigo-900 p-4  rounded  flex items-center justify-center text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                     class="bi bi-bag-check-fill" viewBox="0 0 16 16">
@@ -239,10 +240,240 @@
                     </div>
                 </div>
 
-            </div>
+            </section>
+
+            <!--Trends and Visual Insights-->
+            <section class="mt-10">
+                <p class="text-gray-600 my-3">Trends and Visual Insights</p>
+                <div class="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-2">
+                    <!--Bar Chart-->
+                    <div class="border border-gray-200 rounded-lg shadow">
+                        <p class="p-6 text-gray-400">Top Categories</p>
+                        <div id="barChart"></div>
+                    </div>
+
+                    <!--Table-->
+                    <div class="border gap-4 border-gray-200 rounded-lg shadow">
+
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <table class="w-full text-sm text-left rtl:text-right">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Product name
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Category
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Price
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Quantity
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Apple MacBook Pro 17"
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Electronics
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $2999
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            4
+                                        </td>
+                                    </tr>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Office Chair Ergonomic
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Furniture
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $199
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            12
+                                        </td>
+                                    </tr>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Nike Running Shoes
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Clothing
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $129
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            20
+                                        </td>
+                                    </tr>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Organic Almonds 1kg
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Groceries
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $15
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            50
+                                        </td>
+                                    </tr>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Samsung Galaxy S23 Ultra
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Electronics
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $1199
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            8
+                                        </td>
+                                    </tr>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Luxury Sofa Set
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Furniture
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $2499
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            2
+                                        </td>
+                                    </tr>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Head & Shoulders Shampoo
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Health & Beauty
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $10
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            100
+                                        </td>
+                                    </tr>
+                                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            Michelin Car Tires
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Automotive
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $299
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            15
+                                        </td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+    var options = {
+        series: [{
+            name: 'Servings',
+            data: [44, 55, 41, 67, 22, 22]
+        }],
+
+        chart: {
+            height: 400,
+            type: 'bar',
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 10,
+                columnWidth: '50%',
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            width: 0
+        },
+        grid: {
+            row: {
+                colors: ['#fff', '#f2f2f2']
+            }
+        },
+        xaxis: {
+            labels: {
+                rotate: -45
+            },
+            categories: [
+                "Electronics",
+                "Furniture",
+                "Clothing",
+                "Groceries",
+                "Health & Beauty",
+                "Automotive",
+            ],
+
+        },
+        yaxis: {
+            title: {
+                text: 'Best categories of this month',
+            },
+        },
+        colors: ['#312E81'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shade: 'light',
+                type: "horizontal",
+                shadeIntensity: 0.25,
+                gradientToColors: undefined,
+                inverseColors: true,
+                opacityFrom: 0.85,
+                opacityTo: 0.85,
+                stops: [50, 0, 100]
+            },
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#barChart"), options);
+    chart.render();
+
+
+
+</script>
 
 </html>
