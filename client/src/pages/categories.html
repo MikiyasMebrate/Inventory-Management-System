@@ -1,0 +1,526 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../output.css" rel="stylesheet">
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <link href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <!--Navbar-->
+    <nav class="fixed top-0 z-50 w-full bg-blue-50 border-b hover:bg-gray-100 border-gray-200">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
+                        aria-controls="logo-sidebar" type="button"
+                        class="inline-flex items-center p-2 text-sm rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gra y-200 dark:text-inbg-indigo-700 hover:text-white dark:focus:ring-gray-600">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                            </path>
+                        </svg>
+                    </button>
+                    <a href="#" class="flex ms-2 md:me-24">
+                        <img src="../assets/logo/logo-dark.png" class="h-8 me-3" alt="Logo" />
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex items-center ms-3">
+                        <div>
+                            <button type="button"
+                                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <span class="sr-only">Open user menu</span>
+                                <img class="w-8 h-8 rounded-full"
+                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                    alt="user photo">
+                            </button>
+                        </div>
+                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:divide-gray-600"
+                            id="dropdown-user">
+                            <div class="px-4 py-3" role="none">
+                                <p class="text-sm dark:text-e">
+                                    Neil Sims
+                                </p>
+                                <p class="text-sm font-medium truncate d0" role="none">
+                                    neil.sims@flowbite.com
+                                </p>
+                            </div>
+                            <ul class="py-1" role="none">
+                                <li>
+                                    <a href="../pages/home/index.html"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300"
+                                        role="menuitem">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300"
+                                        role="menuitem">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300"
+                                        role="menuitem">Earnings</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300"
+                                        role="menuitem">Sign out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside id="logo-sidebar"
+        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-blue-50 border-r border-gray-200 sm:translate-x-0"
+        aria-label="Sidebar">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-50 ">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="../pages/home/index.html"
+                        class="flex items-center p-2   text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015" />
+                        </svg>
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-backpack4-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2m1 2a1 1 0 0 0-2 0zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11z" />
+                            <path
+                                d="M14 7.599A3 3 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A3 3 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Category</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-bag-dash-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M6 9.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-bell-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Notification</span>
+                        <span
+                            class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium rounded-full bg-indigo-900 text-white">3</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                        class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-people-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
+                    </a>
+                </li>
+
+
+
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 rounded-lg mt-14">
+
+            <!--Breadcrumb-->
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                    <li class="inline-flex items-center">
+                        <a href="../pages/home/index.html"
+                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                            <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                            </svg>
+                            Home
+                        </a>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Categories</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <!--table card-->
+            <section class="mt-10">
+                <p class="my-10 text-3xl font-bold">List</p>
+                <div class="w-full bg-white border border-gray-200 rounded-lg ">
+                </div>
+
+                <!--main table-->
+
+                <div class="p-10  overflow-x-auto shadow sm:rounded-lg">
+                    <div
+                        class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                        <div>
+                            <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
+                                class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5"
+                                type="button">
+
+                                All
+                                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="dropdownRadio"
+                                class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:divide-gray-600"
+                                data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top"
+                                style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+                                <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownRadioButton">
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-gray-100">
+                                            <input id="filter-radio-example-1" type="radio" value="" name="filter-radio"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="filter-radio-example-1"
+                                                class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                                All</label>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-gray-100">
+                                            <input id="filter-radio-example-1" type="radio" value="" name="filter-radio"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="filter-radio-example-1"
+                                                class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                                10</label>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-gray-100">
+                                            <input id="filter-radio-example-1" type="radio" value="" name="filter-radio"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="filter-radio-example-1"
+                                                class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                                50</label>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="flex items-center p-2 rounded hover:bg-gray-100">
+                                            <input id="filter-radio-example-1" type="radio" value="" name="filter-radio"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="filter-radio-example-1"
+                                                class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                                100</label>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <label for="table-search" class="sr-only">Search</label>
+                        <div class="relative">
+                            <div
+                                class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input type="text" id="table-search"
+                                class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Search for items">
+                        </div>
+                    </div>
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Icon
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Description
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Number Of Product
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Electronics
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Electronics is a scientific and engineering discipline that studies and applies the
+                                    principles of physics to
+                                    design, create, and operate devices.
+                                </td>
+                                <td class="px-6 py-4">
+                                    43339
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Furniture
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Furniture includes items like chairs, tables, and beds that are used to make living
+                                    or working spaces more
+                                    functional and comfortable.
+                                </td>
+                                <td class="px-6 py-4">
+                                    12048
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Clothing
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Clothing refers to garments made from various materials designed to be worn by
+                                    individuals for style,
+                                    protection, or modesty.
+                                </td>
+                                <td class="px-6 py-4">
+                                    8762
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Books
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Books are collections of written or printed pages that provide knowledge, stories,
+                                    or entertainment to
+                                    readers.
+                                </td>
+                                <td class="px-6 py-4">
+                                    5320
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Beauty & Health
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Beauty & Health products include skincare, makeup, and wellness items designed to
+                                    improve appearance and
+                                    maintain health.
+                                </td>
+                                <td class="px-6 py-4">
+                                    20456
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Sports & Outdoors
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Sports & Outdoors products support physical activities and recreational pursuits,
+                                    including equipment,
+                                    apparel, and accessories.
+                                </td>
+                                <td class="px-6 py-4">
+                                    9582
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Toys & Games
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Toys & Games are designed to entertain and educate children and adults, ranging from
+                                    action figures to
+                                    puzzles.
+                                </td>
+                                <td class="px-6 py-4">
+                                    4789
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Home Appliances
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Home Appliances include devices like refrigerators, ovens, and washing machines that
+                                    assist with household
+                                    tasks.
+                                </td>
+                                <td class="px-6 py-4">
+                                    12839
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Jewelry
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Jewelry consists of decorative items like rings, necklaces, and bracelets, often
+                                    made from precious
+                                    materials.
+                                </td>
+                                <td class="px-6 py-4">
+                                    3947
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Automotive
+                                </th>
+                                <td class="px-6 py-4">
+                                    -
+                                </td>
+                                <td class="px-6 py-4">
+                                    Automotive products include parts, accessories, and tools for vehicle maintenance
+                                    and upgrades.
+                                </td>
+                                <td class="px-6 py-4">
+                                    7238
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!--Pagination-->
+                    <div class="flex items-end justify-end">
+                        <nav class="mt-10" aria-label="Page navigation example">
+                            <ul class="flex items-center -space-x-px h-10 text-base">
+                                <li>
+                                    <a href="#"
+                                        class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        <span class="sr-only">Previous</span>
+                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M5 1 1 5l4 4" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                                </li>
+                                <li>
+                                    <a href="#" aria-current="page"
+                                        class="z-10 flex items-center justify-center px-4 h-10 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        <span class="sr-only">Next</span>
+                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 9 4-4-4-4" />
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+</body>
+<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
+</html>
