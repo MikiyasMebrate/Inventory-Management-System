@@ -36,9 +36,7 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                                    alt="user photo">
+                                <img class="w-8 h-8 rounded-full" src="../../assets/images/user.webp" alt="user photo">
                             </button>
                         </div>
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -126,7 +124,7 @@
 
 
                 <li>
-                    <a href="#"
+                    <a href="../notification.html"
                         class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -140,7 +138,7 @@
                 </li>
 
                 <li>
-                    <a href="#"
+                    <a href="../users.html"
                         class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -162,7 +160,7 @@
     <div class="p-4 sm:ml-64">
         <div class="p-4 rounded-lg mt-14">
             <!--Key Metrics (KPIs) Section-->
-            <section class="grid grid-cols-1  gap-4 mb-4  md:grid-cols-2 xl:grid-cols-4 ">
+            <section class="grid grid-cols-1  gap-4 mb-4  md:grid-cols-2 lg:grid-cols-4 ">
                 <!-- Card 1 -->
                 <div class="block md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
                     <div class="flex flex-row justify-between gap-2">
@@ -612,6 +610,8 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
 <script>
     var options = {
@@ -857,9 +857,6 @@
 
     var chart = new ApexCharts(document.querySelector("#pieChart"), options);
     chart.render();
-
-
-
 
 </script>
 
