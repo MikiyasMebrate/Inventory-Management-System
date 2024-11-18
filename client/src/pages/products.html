@@ -158,6 +158,7 @@
         </div>
     </aside>
 
+
     <!-- Main content -->
     <div class="p-4 sm:ml-64">
         <div class="p-4 rounded-lg mt-14">
@@ -183,7 +184,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Categories</span>
+                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Products</span>
                         </div>
                     </li>
                 </ol>
@@ -202,7 +203,7 @@
                         <button data-modal-target="add-modal" data-modal-toggle="add-modal"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             type="button">
-                            Add Category
+                            Add Product
                         </button>
                     </div>
                     <div
@@ -303,22 +304,19 @@
 
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Icon
-                                </th>
-                                <th scope="col" class="px-6 py-3">
                                     Description
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <div class="flex flex-row justify-between">
-                                        <p>Number of products</p>
-                                        <svg class="w-6 h-6 text-gray-400 hover:text-gray-500" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                            viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4" />
-                                        </svg>
-                                    </div>
+                                    Price
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantity in stock
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Category
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Is Active
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
@@ -328,18 +326,29 @@
                         <tbody>
                             <tr class="bg-white border-b hover:bg-gray-100">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Macbook Pro 2022
+                                </th>
+                                <td class="px-6 py-4">
+                                    16GB of faster unified memory with support for up to 32GB, along with 120GB/s of
+                                    memory bandwidth.
+                                </td>
+                                <td class="px-6 py-4">
+                                    800$
+                                </td>
+                                <td class="px-6 py-4">
+                                    83
+                                </td>
+                                <td class="px-6 py-4">
                                     Electronics
-                                </th>
-                                <td class="px-6 py-4">
-                                    -
                                 </td>
                                 <td class="px-6 py-4">
-                                    Electronics is a scientific and engineering discipline that studies and applies the
-                                    principles of physics to
-                                    design, create, and operate devices.
-                                </td>
-                                <td class="px-6 py-4">
-                                    43339
+                                    <svg class="w-6 h-6 text-green-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-row">
@@ -385,20 +394,31 @@
                                 </td>
 
                             </tr>
-                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+
+                            <tr class="bg-white border-b hover:bg-gray-100">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Furniture
+                                    iPhone 14 Pro Max
                                 </th>
                                 <td class="px-6 py-4">
-                                    -
+                                    A16 Bionic chip, 48MP main camera, Dynamic Island for notifications.
                                 </td>
                                 <td class="px-6 py-4">
-                                    Furniture includes items like chairs, tables, and beds that are used to make living
-                                    or working spaces more
-                                    functional and comfortable.
+                                    1200$
                                 </td>
                                 <td class="px-6 py-4">
-                                    12048
+                                    60
+                                </td>
+                                <td class="px-6 py-4">
+                                    Electronics
+                                </td>
+                                <td class="px-6 py-4">
+                                    <svg class="w-6 h-6 text-green-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-row">
@@ -445,76 +465,28 @@
                             </tr>
                             <tr class="bg-white border-b hover:bg-gray-100">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Clothing
+                                    Samsung Galaxy S23 Ultra
                                 </th>
                                 <td class="px-6 py-4">
-                                    -
+                                    200MP camera, Snapdragon 8 Gen 2 processor, and 5000mAh battery.
                                 </td>
                                 <td class="px-6 py-4">
-                                    Clothing refers to garments made from various materials designed to be worn by
-                                    individuals for style,
-                                    protection, or modesty.
+                                    1000$
                                 </td>
                                 <td class="px-6 py-4">
-                                    8762
+                                    45
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="flex flex-row">
-                                        <!--Edit-->
-                                        <button data-modal-target="edit-modal" data-modal-toggle="edit-modal"
-                                            type="button">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-gray-800 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                                                    clip-rule="evenodd" />
-                                                <path fill-rule="evenodd"
-                                                    d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-
-                                        <!--View-->
-                                        <button type="button" data-modal-target="view-modal"
-                                            data-modal-toggle="view-modal">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-gray-800 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-
-                                        <!--Delete-->
-                                        <button type="button" data-modal-target="popup-modal"
-                                            data-modal-toggle="popup-modal">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-red-700 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Books
-                                </th>
-                                <td class="px-6 py-4">
-                                    -
+                                    Electronics
                                 </td>
                                 <td class="px-6 py-4">
-                                    Books are collections of written or printed pages that provide knowledge, stories,
-                                    or entertainment to
-                                    readers.
-                                </td>
-                                <td class="px-6 py-4">
-                                    5320
+                                    <svg class="w-6 h-6 text-green-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-row">
@@ -561,76 +533,28 @@
                             </tr>
                             <tr class="bg-white border-b hover:bg-gray-100">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Beauty & Health
+                                    Sony WH-1000XM5
                                 </th>
                                 <td class="px-6 py-4">
-                                    -
+                                    Industry-leading noise cancellation with a lightweight design.
                                 </td>
                                 <td class="px-6 py-4">
-                                    Beauty & Health products include skincare, makeup, and wellness items designed to
-                                    improve appearance and
-                                    maintain health.
+                                    400$
                                 </td>
                                 <td class="px-6 py-4">
-                                    20456
+                                    150
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="flex flex-row">
-                                        <!--Edit-->
-                                        <button data-modal-target="edit-modal" data-modal-toggle="edit-modal"
-                                            type="button">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-gray-800 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                                                    clip-rule="evenodd" />
-                                                <path fill-rule="evenodd"
-                                                    d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-
-                                        <!--View-->
-                                        <button type="button" data-modal-target="view-modal"
-                                            data-modal-toggle="view-modal">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-gray-800 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-
-                                        <!--Delete-->
-                                        <button type="button" data-modal-target="popup-modal"
-                                            data-modal-toggle="popup-modal">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-red-700 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Sports & Outdoors
-                                </th>
-                                <td class="px-6 py-4">
-                                    -
+                                    Electronics
                                 </td>
                                 <td class="px-6 py-4">
-                                    Sports & Outdoors products support physical activities and recreational pursuits,
-                                    including equipment,
-                                    apparel, and accessories.
-                                </td>
-                                <td class="px-6 py-4">
-                                    9582
+                                    <svg class="w-6 h-6 text-green-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-row">
@@ -677,76 +601,28 @@
                             </tr>
                             <tr class="bg-white border-b hover:bg-gray-100">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Toys & Games
+                                    Dell XPS 13 Plus
                                 </th>
                                 <td class="px-6 py-4">
-                                    -
+                                    Sleek ultrabook with 13th Gen Intel processors and OLED display.
                                 </td>
                                 <td class="px-6 py-4">
-                                    Toys & Games are designed to entertain and educate children and adults, ranging from
-                                    action figures to
-                                    puzzles.
+                                    1500$
                                 </td>
                                 <td class="px-6 py-4">
-                                    4789
+                                    30
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="flex flex-row">
-                                        <!--Edit-->
-                                        <button data-modal-target="edit-modal" data-modal-toggle="edit-modal"
-                                            type="button">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-gray-800 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                                                    clip-rule="evenodd" />
-                                                <path fill-rule="evenodd"
-                                                    d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-
-                                        <!--View-->
-                                        <button type="button" data-modal-target="view-modal"
-                                            data-modal-toggle="view-modal">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-gray-800 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-
-                                        <!--Delete-->
-                                        <button type="button" data-modal-target="popup-modal"
-                                            data-modal-toggle="popup-modal">
-                                            <svg class="w-6 h-6 text-gray-400 hover:text-red-700 " aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill-rule="evenodd"
-                                                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Home Appliances
-                                </th>
-                                <td class="px-6 py-4">
-                                    -
+                                    Electronics
                                 </td>
                                 <td class="px-6 py-4">
-                                    Home Appliances include devices like refrigerators, ovens, and washing machines that
-                                    assist with household
-                                    tasks.
-                                </td>
-                                <td class="px-6 py-4">
-                                    12839
+                                    <svg class="w-6 h-6 text-green-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-row">
@@ -793,18 +669,28 @@
                             </tr>
                             <tr class="bg-white border-b hover:bg-gray-100">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Jewelry
+                                    Google Pixel 8
                                 </th>
                                 <td class="px-6 py-4">
-                                    -
+                                    Tensor G3 chip, 50MP main camera, and Android 14.
                                 </td>
                                 <td class="px-6 py-4">
-                                    Jewelry consists of decorative items like rings, necklaces, and bracelets, often
-                                    made from precious
-                                    materials.
+                                    800$
                                 </td>
                                 <td class="px-6 py-4">
-                                    3947
+                                    100
+                                </td>
+                                <td class="px-6 py-4">
+                                    Electronics
+                                </td>
+                                <td class="px-6 py-4">
+                                    <svg class="w-6 h-6 text-green-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-row">
@@ -849,19 +735,30 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                            <tr class="bg-white border-b hover:bg-gray-100">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Automotive
+                                    Bose QuietComfort 45
                                 </th>
                                 <td class="px-6 py-4">
-                                    -
+                                    High-fidelity sound and world-class noise cancellation.
                                 </td>
                                 <td class="px-6 py-4">
-                                    Automotive products include parts, accessories, and tools for vehicle maintenance
-                                    and upgrades.
+                                    350$
                                 </td>
                                 <td class="px-6 py-4">
-                                    7238
+                                    200
+                                </td>
+                                <td class="px-6 py-4">
+                                    Electronics
+                                </td>
+                                <td class="px-6 py-4">
+                                    <svg class="w-6 h-6 text-green-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-row">
@@ -906,6 +803,9 @@
                                     </div>
                                 </td>
                             </tr>
+
+
+
                         </tbody>
                     </table>
 
@@ -959,7 +859,7 @@
                         </nav>
                     </div>
 
-                    <!--View Category-->
+                    <!--View Product-->
                     <div id="view-modal" tabindex="-1" aria-hidden="true"
                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative p-4 w-full max-w-md max-h-full">
