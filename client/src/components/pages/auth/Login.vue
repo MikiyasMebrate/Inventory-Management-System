@@ -1,0 +1,58 @@
+<template>
+    <div class="w-full flex flex-col md:flex-row items-center justify-center h-screen">
+        <div class="flex  flex-col md:flex-row  w-3/5 bg-blue-50 p-20 rounded-2xl">
+
+            <!--Vector animation start-->
+            <div class="hidden md:block md:w-1/2 ">
+                <img :src="loginSVG" alt="" srcset="">
+            </div>
+
+            <!--Vector animation end-->
+
+            <div class="md:w-1/2  ">
+                <div>
+                    <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
+
+                    <!-- Login Form -->
+                    <form action="#" method="POST">
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Email
+                                Address</label>
+                            <input type="email" id="email" name="email" required class="form-input"
+                                placeholder="Enter your email" />
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" required class="form-input"
+                                placeholder="Enter your password" />
+                        </div>
+
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <input type="checkbox" id="remember" name="remember"
+                                    class="h-4 w-4 text-indigo-700 border-gray-300 rounded" />
+                                <label for="remember" class="text-sm text-gray-600">Remember
+                                    me</label>
+                            </div>
+                            <a href="#" class="text-sm text-indigo-700 hover:text-indigo-700">Forgot
+                                password?</a>
+                        </div>
+
+                        <a href="../home/index.html" type="submit"
+                            class="w-full block text-center bg-indigo-900 text-white p-3 rounded-lg font-semibold hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            Login
+                        </a>
+
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+  import loginSVG from '@/assets/utility/Computer login-bro.svg'
+</script>
