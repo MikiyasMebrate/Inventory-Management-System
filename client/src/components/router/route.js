@@ -9,7 +9,7 @@ const routes = [
     {
         path: '/admin',
         name: 'admin',
-        component: () => import('@/components/layouts/AdminLayout.vue'),
+        component: () => import('@/components/layouts/Layout.vue'),
     }
 ]
 
