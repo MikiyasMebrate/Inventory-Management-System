@@ -5,8 +5,7 @@
         </div>
 
         <div class="col-span-2">
-            <fwb-textarea v-model="modelValue.description" :rows="10" label="Description"
-                placeholder="Write Description..." />
+            <fwb-textarea v-model="model.description" :rows="10" label="Description" placeholder="Write Description..." />
         </div>
     </div>
 </template>
