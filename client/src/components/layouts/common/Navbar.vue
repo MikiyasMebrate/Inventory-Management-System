@@ -19,9 +19,9 @@ import userIcon from '@/assets/images/user.webp'
                             </path>
                         </svg>
                     </button>
-                    <a href="#" class="flex ms-2 md:me-24">
+                    <router-link :to="{name : 'dashboard'}" active-class="" class="flex ms-2 md:me-24">
                         <img :src="logoDark" class="h-8 me-3" alt="Logo" />
-                    </a>
+                    </router-link>
                 </div>
                 <div class="flex items-center">
                     <div class="flex items-center ms-3">
@@ -46,14 +46,16 @@ import userIcon from '@/assets/images/user.webp'
                             <ul class="py-1" role="none">
 
                                 <li>
-                                    <a href="../notificationPreference.html"
+                                    <router-link :to="{name : 'notification-preferences'}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Notification Setting</a>
+                                        role="menuitem">Notification Preference
+                                    </router-link>
                                 </li>
                                 <li>
-                                    <a href="../auth/login.html"
+                                    <router-link :to="{name : 'login'}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Sign out</a>
+                                        role="menuitem">Sign out
+                                    </router-link>
                                 </li>
                             </ul>
                         </div>

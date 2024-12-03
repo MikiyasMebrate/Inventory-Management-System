@@ -39,10 +39,10 @@
                                 password?</a>
                         </div>
 
-                        <a href="../home/index.html" type="submit"
+                        <router-link :to="{name : 'dashboard'}" type="submit"
                             class="w-full block text-center bg-indigo-900 text-white p-3 rounded-lg font-semibold hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             Login
-                        </a>
+                        </router-link>
 
 
                     </form>
