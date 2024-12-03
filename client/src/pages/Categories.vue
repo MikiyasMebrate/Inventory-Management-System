@@ -1,12 +1,12 @@
 <template>
     <Breadcrumb name="Category" />
 
-    <section class="mt-10">
-        <p class="my-10 text-3xl font-bold">List</p>
+    <section class="mt-5">
+        <p class="my-5 text-3xl font-bold">List</p>
 
 
         <!--Add category button-->
-        <div class="flex justify-end my-4">
+        <div class="flex justify-end my-1">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
         </div>
 
@@ -17,6 +17,12 @@
         <!--Detail Modal-->
         <DetailEntityModal title="Category detail" :detail="selected" :isShowModal="modalOptions.isShowDetailModal"
             @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
+
+        <!--Edit Modal-->
+        <EditEntityModal title="Edit Category" :isShowEditModal="modalOptions.isShowEditModal"
+            @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="category"
+            v-model="formData" />
+
 
         <!--Page length option -->
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -54,12 +60,13 @@
                 <fwb-table-row v-for="i in 10">
                     <fwb-table-cell>{{ i }}</fwb-table-cell>
                     <fwb-table-cell>Apple MacBook Pro 17</fwb-table-cell>
-                    <fwb-table-cell>99</fwb-table-cell>
+                    <fwb-table-cell> 99</fwb-table-cell>
                     <fwb-table-cell>
                         <div class="flex ">
                             <EyeIcon @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)"
                                 class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                            <PencilSquareIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                            <PencilSquareIcon @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal)"
+                                class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             <TrashIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                         </div>
                     </fwb-table-cell>
@@ -79,6 +86,7 @@
 import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
+import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import Button from '@/components/ui/Button.vue';
 import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
 

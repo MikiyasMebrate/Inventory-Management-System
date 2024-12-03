@@ -2,10 +2,10 @@
   <h1>Admin Layout</h1>
   <Navbar />
   <div class="p-4 sm:ml-64">
-    <div class="p-4 rounded-lg mt-14">
-        <!--main content start-->
-        <router-view></router-view>
-         <!--main content end-->
+    <div class="p-4 rounded-lg mt-10">
+      <!--main content start-->
+      <router-view></router-view>
+      <!--main content end-->
     </div>
   </div>
   <Sidebar />
@@ -19,6 +19,6 @@ import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 
 onMounted(() => {
-    initFlowbite();
+  initFlowbite();
 })
 </script>
