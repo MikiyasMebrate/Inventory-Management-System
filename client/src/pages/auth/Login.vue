@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex flex-col md:flex-row items-center justify-center h-screen">
-        <div class="flex  flex-col md:flex-row  w-3/5 bg-blue-50 p-20 rounded-2xl">
+        <div class="flex  flex-col md:flex-row w-11/12 md:w-3/5 bg-blue-50 p-20 rounded-2xl">
 
             <!--Vector animation start-->
             <div class="hidden md:block md:w-1/2 ">
@@ -9,7 +9,7 @@
 
             <!--Vector animation end-->
 
-            <div class="md:w-1/2  ">
+            <div class=" md:w-1/2  ">
                 <div>
                     <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
 

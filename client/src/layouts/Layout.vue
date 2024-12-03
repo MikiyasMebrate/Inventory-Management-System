@@ -12,8 +12,8 @@
 </template>
 
 <script setup>
-import Navbar from "@/components/layouts/common/Navbar.vue";
-import Sidebar from "@/components/layouts/common/Sidebar.vue";
+import Navbar from "@/layouts/common/Navbar.vue";
+import Sidebar from "@/layouts/common/Sidebar.vue";
 
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
