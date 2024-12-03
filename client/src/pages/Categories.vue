@@ -6,23 +6,9 @@
 
 
         <!--Add category button-->
-        <div class="flex justify-end my-1">
+        <div class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
         </div>
-
-        <!--Add Modal-->
-        <AddEntityModal title="Add Category" :isShowAddModal="modalOptions.isShowAddModal"
-            @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category" v-model="formData" />
-
-        <!--Detail Modal-->
-        <DetailEntityModal title="Category detail" :detail="selected" :isShowModal="modalOptions.isShowDetailModal"
-            @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
-
-        <!--Edit Modal-->
-        <EditEntityModal title="Edit Category" :isShowEditModal="modalOptions.isShowEditModal"
-            @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="category"
-            v-model="formData" />
-
 
         <!--Page length option -->
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -35,7 +21,6 @@
         </div>
 
         <!--Table-->
-
         <fwb-table hoverable>
             <fwb-table-head>
                 <fwb-table-head-cell>#</fwb-table-head-cell>
@@ -63,11 +48,15 @@
                     <fwb-table-cell> 99</fwb-table-cell>
                     <fwb-table-cell>
                         <div class="flex ">
+                            <!--Detail-->
                             <EyeIcon @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)"
                                 class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                            <!--Edit-->
                             <PencilSquareIcon @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal)"
                                 class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                            <TrashIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                            <!--Delete-->
+                            <TrashIcon @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)"
+                                class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                         </div>
                     </fwb-table-cell>
                 </fwb-table-row>
@@ -76,6 +65,25 @@
             </fwb-table-body>
         </fwb-table>
 
+        <!--Pagination-->
+        <div class="flex items-end justify-end mt-5">
+            <fwb-pagination v-model="pagination" :total-pages="100" show-icons :large="true"></fwb-pagination>
+        </div>
+
+
+        <!--Modals-->
+        <!--Add Modal-->
+        <AddEntityModal title="Add Category" :isShowAddModal="modalOptions.isShowAddModal"
+            @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category" v-model="formData" />
+        <!--Detail Modal-->
+        <DetailEntityModal title="Category detail" :detail="selected" :isShowModal="modalOptions.isShowDetailModal"
+            @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
+        <!--Edit Modal-->
+        <EditEntityModal title="Edit Category" :isShowEditModal="modalOptions.isShowEditModal"
+            @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="category"
+            v-model="formData" />
+        <DeleteEntityModal title="Delete Category" :detail="selected" :isShowModal="modalOptions.isShowDeleteModal"
+            @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 
 
     </section>
@@ -87,6 +95,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
 import EditEntityModal from '@/components/modal/EditEntityModal.vue';
+import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
 import Button from '@/components/ui/Button.vue';
 import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
 
@@ -99,6 +108,7 @@ import {
     FwbTableHead,
     FwbTableHeadCell,
     FwbTableRow,
+    FwbPagination
 } from 'flowbite-vue'
 
 const modalOptions = ref({
@@ -110,10 +120,12 @@ const modalOptions = ref({
 
 const pageLength = ref(10)
 const searchQuery = ref('')
+const pagination = ref(1)
 const formData = ref({
     name: '',
     description: ''
 })
+
 
 const lengths = [
     { value: 10, name: 10 },

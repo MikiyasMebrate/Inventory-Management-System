@@ -14,12 +14,22 @@
                 <div>{{ value }}</div>
             </div>
         </template>
+        <template #footer>
+            <div class="flex justify-end gap-x-4">
+                <fwb-button @click="emitClose" color="alternative">
+                    Decline
+                </fwb-button>
+                <fwb-button @click="emitClose" color="red">
+                    Delete
+                </fwb-button>
+            </div>
+        </template>
     </fwb-modal>
 </template>
 
 
 <script setup>
-import { FwbButton, FwbModal } from 'flowbite-vue'
+import { FwbModal, FwbButton } from 'flowbite-vue'
 
 
 const emit = defineEmits(['close']);
