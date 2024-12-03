@@ -57,6 +57,7 @@
                     <fwb-table-cell>$2999</fwb-table-cell>
                     <fwb-table-cell>
                         <div class="flex ">
+                            <EyeIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             <PencilSquareIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             <TrashIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                         </div>
@@ -77,11 +78,11 @@
 import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import Button from '@/components/ui/Button.vue';
-import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/solid'
+import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
 
 import { ref } from 'vue'
 import {
-    FwbSelect, FwbInput, FwbA,
+    FwbSelect, FwbInput,
     FwbTable,
     FwbTableBody,
     FwbTableCell,
@@ -92,7 +93,9 @@ import {
 
 const modalOptions = ref({
     isShowAddModal: false,
-    isShowEditModal: false
+    isShowEditModal: false,
+    isShowDetailModal: false,
+    isShowDeleteModal: false,
 })
 
 const pageLength = ref(10)
