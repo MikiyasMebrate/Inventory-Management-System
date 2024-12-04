@@ -182,6 +182,7 @@ const toggleModal = (modelName, state, id = null, operation) => {
         } else if (operation == 'edit') {
             formData.value.name = categoryWithoutId.name
             formData.value.description = categoryWithoutId.description
+            formData.value._id = _id
         }
 
     }
