@@ -2,6 +2,7 @@ const { check, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const Category = require("../models/categoryModel")
 const User = require("../models/userModel")
+const Product = require("../models/productModel")
 const createNotification = require("../services/notificationService")
 const NotificationPreference = require('../models/notificationPreference')
 
@@ -12,7 +13,24 @@ const NotificationPreference = require('../models/notificationPreference')
  * @access private
  */
 const getCategories = asyncHandler(async (req, res) => {
-    const categories = await Category.find({})
+    const categories = await Category.aggregate([
+        {
+            $lookup: {
+                from: 'products', // The collection name of the Product model
+                localField: '_id', // The field in Category to match
+                foreignField: 'category', // The field in Product referencing the Category
+                as: 'products', // The alias for the joined data
+            },
+        },
+        {
+            $project: {
+                name: 1, // Include the category name
+                description: 1, // Include the category description
+                icon: 1, // Include the category icon
+                productCount: { $size: '$products' }, // Count the number of products in the array
+            },
+        },
+    ]);
     res.status(200).json(categories)
 })
 
@@ -93,7 +111,7 @@ const getCategory = asyncHandler(async (req, res) => {
 })
 
 /**
- * @desc add  category
+ * @desc update  category
  * @route PUT /api/category/id
  * @access private
  */
