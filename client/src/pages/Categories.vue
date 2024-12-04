@@ -3,7 +3,11 @@
 
     <section class="mt-5">
         <p class="my-5 text-3xl font-bold">List</p>
-
+        <div class="flex justify-center">
+            <div class="w-full md:w-1/2 ">
+                <Alert @close="clearMessage" v-if="message" :title="message" type="success" />
+            </div>
+        </div>
         <!--Add category button-->
         <div class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
@@ -78,16 +82,16 @@
         <!--Modals-->
         <!--Add Modal-->
         <AddEntityModal title="Add Category" :isLoading="category.isLoading" :formError="category.error"
-            :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit"
+            :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit('post')"
             @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category" v-model="formData" />
         <!--Detail Modal-->
         <DetailEntityModal title="Category detail" :detail="selectedCategory" :isShowModal="modalOptions.isShowDetailModal"
             @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
         <!--Edit Modal-->
         <EditEntityModal title="Edit Category" :isShowEditModal="modalOptions.isShowEditModal"
-            @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="category"
-            v-model="formData" />
-        <DeleteEntityModal title="Delete Category" :detail="selected" :isShowModal="modalOptions.isShowDeleteModal"
+            @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="category" v-model="formData"
+            @submit="onSubmit('put')" />
+        <DeleteEntityModal title=" Delete Category" :detail="selected" :isShowModal="modalOptions.isShowDeleteModal"
             @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 
 
@@ -105,8 +109,10 @@ import Button from '@/components/ui/Button.vue';
 import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
 import { ref, onMounted, watch, reactive } from 'vue'
 import { useCategoryStore } from '@/store/category';
+import Alert from '@/components/ui/Alert.vue';
 import {
-    FwbSelect, FwbInput,
+    FwbSelect,
+    FwbInput,
     FwbTable,
     FwbTableBody,
     FwbTableCell,
@@ -116,21 +122,8 @@ import {
     FwbPagination
 } from 'flowbite-vue'
 
-const data = ref([]) //categories data
-const pageLength = ref(10)
-const searchQuery = reactive({
-    query: ''
-})
 
-const pagination = ref(1)
-const selectedCategory = ref({})
-const formData = ref({
-    name: '',
-    description: '',
-    _id: ''
-})
-
-
+//Category Store
 const category = useCategoryStore()
 onMounted(async () => {
     await category.fetchCategories()
@@ -138,13 +131,27 @@ onMounted(async () => {
 })
 
 
+
+const data = ref([]) //categories data
+const pageLength = ref(10)
+const pagination = ref(1)
+const selectedCategory = ref({})
+const formData = ref({
+    name: '',
+    description: '',
+    _id: ''
+})
+const searchQuery = reactive({
+    query: ''
+})
+const message = ref('')
+
 const modalOptions = ref({
     isShowAddModal: false,
     isShowEditModal: false,
     isShowDetailModal: false,
     isShowDeleteModal: false,
 })
-
 
 watch(() => searchQuery.query, (query) => {
     getFilteredItem(query || null)
@@ -186,20 +193,34 @@ const toggleModal = (modelName, state, id = null, operation) => {
         }
 
     }
-
-
 }
 
 
+const onSubmit = async (type) => {
+    let response = null
+    if (type == 'post') {
+        response = await category.addCategory(formData.value)
 
+        //hide add modal
+        if (response) {
+            modalOptions.value.isShowAddModal = false
+            message.value = 'Successfully category added!'
+        }
 
-const onSubmit = async () => {
-    let response = await category.addCategory(formData.value)
+    } else if (type == 'put') {
+        response = await category.updateCategory(formData.value)
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowEditModal = false
+            message.value = 'Successfully category updated!'
+        }
+
+    }
 
     if (response) {
         formData.value.name = ''
         formData.value.description = ''
-        modalOptions.value.isShowAddModal = false
     }
 
 };
@@ -208,5 +229,8 @@ const handleOnSort = async (col) => {
     category.sort(col)
 }
 
+const clearMessage = () => {
+    message.value = ''
+}
 
 </script>

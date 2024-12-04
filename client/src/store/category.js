@@ -52,6 +52,28 @@ export const useCategoryStore = defineStore('category', {
             }
             return false
         },
+        async updateCategory(category) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.put(`category/${category._id}`, category);
+                const index = this.categories.findIndex(item => item._id === category._id);
+                if (index !== -1) {
+                    this.categories[index] = response.data;
+                }
+            } catch (error) {
+                console.log('Error updating category:', error);
+                this.error = error.response?.data?.message || 'Failed to update category';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
         sort(col) {
             if (this.sortColumn === col) {
                 // Reverse the sort direction
