@@ -14,7 +14,7 @@
                     <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
 
                     <!-- Login Form -->
-                    <form action="#" method="POST">
+                    <Form @submit="onSubmit">
                         <div class="mb-4">
                             <fwb-input class="mb-2" type="email" v-model="formData.email" label="Email"
                                 placeholder="Enter your Email" size="lg" />
@@ -37,13 +37,14 @@
                                 password?</a>
                         </div>
 
-                        <router-link :to="{ name: 'dashboard' }" type="submit"
+
+                        <button type="submit"
                             class="w-full block text-center bg-indigo-900 text-white p-3 rounded-lg font-semibold hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             Login
-                        </router-link>
+                        </button>
 
 
-                    </form>
+                    </Form>
                 </div>
 
             </div>
@@ -56,6 +57,7 @@ import loginSVG from '@/assets/utility/Computer login-bro.svg'
 import { FwbInput } from 'flowbite-vue'
 import { reactive } from 'vue';
 import { useAuthStore } from '@/store/auth'
+import { Form } from 'vee-validate';
 
 
 //Form data
@@ -65,6 +67,11 @@ const formData = reactive({
 })
 
 const authStore = useAuthStore();
+
+const onSubmit = () => {
+    console.log('form submitted')
+}
+
 
 
 </script>
