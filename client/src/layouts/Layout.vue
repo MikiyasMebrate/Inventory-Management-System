@@ -1,8 +1,7 @@
 <template>
-  <h1>Admin Layout</h1>
   <Navbar />
   <div class="p-4 sm:ml-64">
-    <div class="p-4 rounded-lg mt-5">
+    <div class="p-4 rounded-lg mt-10">
       <!--main content start-->
       <router-view></router-view>
       <!--main content end-->

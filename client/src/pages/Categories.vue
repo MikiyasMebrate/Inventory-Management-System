@@ -4,7 +4,6 @@
     <section class="mt-5">
         <p class="my-5 text-3xl font-bold">List</p>
 
-
         <!--Add category button-->
         <div class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
@@ -41,25 +40,26 @@
                 </fwb-table-head-cell>
             </fwb-table-head>
             <fwb-table-body>
-
-                <fwb-table-row v-for="i in 10">
-                    <fwb-table-cell>{{ i }}</fwb-table-cell>
-                    <fwb-table-cell>Apple MacBook Pro 17</fwb-table-cell>
-                    <fwb-table-cell> 99</fwb-table-cell>
-                    <fwb-table-cell>
-                        <div class="flex ">
-                            <!--Detail-->
-                            <EyeIcon @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)"
-                                class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                            <!--Edit-->
-                            <PencilSquareIcon @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal)"
-                                class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                            <!--Delete-->
-                            <TrashIcon @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)"
-                                class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                        </div>
-                    </fwb-table-cell>
-                </fwb-table-row>
+                <template v-if="!category.isLoading">
+                    <fwb-table-row v-for="(item, index) in category.getCategories">
+                        <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
+                        <fwb-table-cell>{{ item.name }}</fwb-table-cell>
+                        <fwb-table-cell> 99</fwb-table-cell>
+                        <fwb-table-cell>
+                            <div class="flex ">
+                                <!--Detail-->
+                                <EyeIcon @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)"
+                                    class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                                <!--Edit-->
+                                <PencilSquareIcon @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal)"
+                                    class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                                <!--Delete-->
+                                <TrashIcon @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)"
+                                    class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                            </div>
+                        </fwb-table-cell>
+                    </fwb-table-row>
+                </template>
 
 
             </fwb-table-body>
@@ -98,8 +98,8 @@ import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
 import Button from '@/components/ui/Button.vue';
 import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
-
 import { ref } from 'vue'
+import { useCategoryStore } from '@/store/category';
 import {
     FwbSelect, FwbInput,
     FwbTable,
@@ -110,6 +110,12 @@ import {
     FwbTableRow,
     FwbPagination
 } from 'flowbite-vue'
+import { onMounted } from 'vue';
+
+const category = useCategoryStore()
+onMounted(() => {
+    category.fetchCategories()
+})
 
 const modalOptions = ref({
     isShowAddModal: false,
@@ -143,5 +149,6 @@ const selected = {
     name: 'Apple MacBook Pro 17',
     description: 'Electronics is a scientific and engineering discipline that studies and applies the principles of physics to design, create, and operate devices.'
 }
+
 
 </script>
