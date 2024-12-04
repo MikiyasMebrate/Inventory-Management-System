@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '@/plugins/axios'
 import { defineStore } from "pinia";
 import { jwtDecode } from "jwt-decode";
 
@@ -39,7 +39,7 @@ export const useAuthStore = defineStore('auth', {
             this.error = null;
 
             try {
-                const response = await axios.post('login', credentials);
+                const response = await api.post('login', credentials);
                 this.setToken(response.data.token);
                 this.user = jwtDecode(this.token)?.user;
             } catch (error) {

@@ -15,6 +15,7 @@
     "flowbite-vue": "^0.1.6",
     "jwt-decode": "^4.0.0",
     "pinia": "^2.2.8",
+    "vee-validate": "^4.14.7",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

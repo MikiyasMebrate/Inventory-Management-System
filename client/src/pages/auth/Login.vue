@@ -16,16 +16,14 @@
                     <!-- Login Form -->
                     <form action="#" method="POST">
                         <div class="mb-4">
-                            <label for="email" class="form-label">Email
-                                Address</label>
-                            <input type="email" id="email" name="email" required class="form-input"
-                                placeholder="Enter your email" />
+                            <fwb-input class="mb-2" type="email" v-model="formData.email" label="Email"
+                                placeholder="Enter your Email" size="lg" />
+                            <fwb-input type="password" v-model="formData.password" label="Password"
+                                placeholder="Enter your Password" size="lg" />
                         </div>
 
                         <div class="mb-6">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" id="password" name="password" required class="form-input"
-                                placeholder="Enter your password" />
+
                         </div>
 
                         <div class="flex justify-between items-center mb-4">
@@ -39,7 +37,7 @@
                                 password?</a>
                         </div>
 
-                        <router-link :to="{name : 'dashboard'}" type="submit"
+                        <router-link :to="{ name: 'dashboard' }" type="submit"
                             class="w-full block text-center bg-indigo-900 text-white p-3 rounded-lg font-semibold hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             Login
                         </router-link>
@@ -54,5 +52,19 @@
 </template>
 
 <script setup>
-  import loginSVG from '@/assets/utility/Computer login-bro.svg'
+import loginSVG from '@/assets/utility/Computer login-bro.svg'
+import { FwbInput } from 'flowbite-vue'
+import { reactive } from 'vue';
+import { useAuthStore } from '@/store/auth'
+
+
+//Form data
+const formData = reactive({
+    email: '',
+    password: ''
+})
+
+const authStore = useAuthStore();
+
+
 </script>
