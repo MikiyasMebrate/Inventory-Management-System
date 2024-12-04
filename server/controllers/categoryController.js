@@ -85,7 +85,13 @@ const createCategory = [
                 }
             }
 
-            res.status(201).json(category)
+            res.status(201).json({
+                _id: category._id,
+                name: category.name,
+                description: category.description,
+                icon: category.icon,
+                productCount: 0
+            })
         } else {
             res.status(400)
             throw new Error("category data is not valid")
@@ -148,6 +154,8 @@ const updateCategory = [
             { new: true } // return the updated element
         )
 
+        const products = await Product.find({ category: category._id })
+
         //notification
         const users = await User.find()
         for (const user of users) {
@@ -160,7 +168,13 @@ const updateCategory = [
         }
 
 
-        res.status(200).json(updatedCategory)
+        res.status(200).json({
+            _id: updatedCategory._id,
+            name: updatedCategory.name,
+            description: updatedCategory.description,
+            icon: updatedCategory.icon,
+            productCount: products.length
+        })
     })
 ]
 
