@@ -35,9 +35,8 @@ const onSubmit = handleSubmit(async (value) => {
     if (user) {
         router.push('/dashboard');
     }
-
-
 });
+
 </script>
 
 

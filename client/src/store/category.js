@@ -5,7 +5,10 @@ export const useCategoryStore = defineStore('category', {
     state: () => ({
         categories: [],
         isLoading: false,
-        error: null
+        error: null,
+        sortColumn: null,
+        sortDirection: 1,
+
     }),
 
     getters: {
@@ -54,6 +57,27 @@ export const useCategoryStore = defineStore('category', {
                 return true
             }
             return false
+        },
+        sort(col) {
+            if (this.sortColumn === col) {
+                // Reverse the sort direction
+                this.sortDirection *= -1;
+            } else {
+                // Set new column and default to ascending
+                this.sortColumn = col;
+                this.sortDirection = 1;
+            }
+
+            // Sort based on column and direction
+            if (col === 'name') {
+                this.categories.sort((a, b) => {
+                    return this.sortDirection * a.name.localeCompare(b.name);
+                });
+            } else if (col === 'productCount') {
+                this.categories.sort((a, b) => {
+                    return this.sortDirection * (a.productCount - b.productCount);
+                });
+            }
         }
 
     }

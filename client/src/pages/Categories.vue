@@ -27,13 +27,14 @@
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Name</p>
-                        <ArrowsUpDownIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        <ArrowsUpDownIcon @click="handleOnSort('name')" class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Products</p>
-                        <ArrowsUpDownIcon class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        <ArrowsUpDownIcon @click="handleOnSort('productCount')"
+                            class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
@@ -189,6 +190,10 @@ const onSubmit = async () => {
     }
 
 };
+
+const handleOnSort = async (col) => {
+    category.sort(col)
+}
 
 
 </script>
