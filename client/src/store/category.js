@@ -9,7 +9,8 @@ export const useCategoryStore = defineStore('category', {
     }),
 
     getters: {
-        getCategories: (state) => state.categories
+        getCategories: (state) => state.categories,
+        searchCategories: (state) => (searchTerm) => state.categories.filter(category => category.name.toLowerCase().includes(searchTerm.toLowerCase())),
     },
 
     actions: {
@@ -26,6 +27,14 @@ export const useCategoryStore = defineStore('category', {
             } finally {
                 this.isLoading = false;
             }
+        },
+        filterCategories(searchTerm) {
+            if (!searchTerm) {
+                return this.categories; // Return all categories if search is empty
+            }
+            return this.categories.filter(category =>
+                category.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
         }
     }
 })

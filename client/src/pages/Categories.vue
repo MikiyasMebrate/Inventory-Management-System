@@ -12,12 +12,13 @@
         <!--Page length option -->
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
             <fwb-select class="w-20" v-model="pageLength" :options="lengths"></fwb-select>
-            <fwb-input class="w-full md:w-80" v-model="searchQuery" placeholder="enter your search query">
+            <fwb-input class="w-full md:w-80" v-model="searchQuery.query" placeholder="enter your search query">
                 <template #prefix>
                     <MagnifyingGlassIcon class="h-5 w-5" />
                 </template>
             </fwb-input>
         </div>
+
 
         <!--Table-->
         <fwb-table hoverable>
@@ -41,7 +42,7 @@
             </fwb-table-head>
             <fwb-table-body>
                 <template v-if="!category.isLoading">
-                    <fwb-table-row v-for="(item, index) in category.getCategories">
+                    <fwb-table-row v-for="(item, index) in data" :key="item.id">
                         <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
                         <fwb-table-cell>{{ item.name }}</fwb-table-cell>
                         <fwb-table-cell> 99</fwb-table-cell>
@@ -111,11 +112,17 @@ import {
     FwbPagination
 } from 'flowbite-vue'
 import { onMounted } from 'vue';
+import { watch } from 'vue';
+import { reactive } from 'vue';
 
+const data = ref([])
 const category = useCategoryStore()
-onMounted(() => {
-    category.fetchCategories()
+
+onMounted(async () => {
+    await category.fetchCategories()
+    getFilteredItem('')
 })
+
 
 const modalOptions = ref({
     isShowAddModal: false,
@@ -125,12 +132,32 @@ const modalOptions = ref({
 })
 
 const pageLength = ref(10)
-const searchQuery = ref('')
+const searchQuery = reactive({
+    query: ''
+})
+
 const pagination = ref(1)
 const formData = ref({
     name: '',
     description: ''
 })
+
+
+
+watch(() => searchQuery.query, (query) => {
+    getFilteredItem(query || null)
+}
+)
+
+const getFilteredItem = (query) => {
+    if (!query) {
+        data.value = category.filterCategories()
+        return
+    }
+
+    data.value = category.filterCategories(query)
+}
+
 
 
 const lengths = [
