@@ -62,7 +62,8 @@
                                     @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal, item._id, 'edit')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Delete-->
-                                <TrashIcon @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)"
+                                <TrashIcon
+                                    @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal, item._id, 'delete')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             </div>
                         </fwb-table-cell>
@@ -91,8 +92,8 @@
         <EditEntityModal title="Edit Category" :isShowEditModal="modalOptions.isShowEditModal"
             @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="category" v-model="formData"
             @submit="onSubmit('put')" />
-        <DeleteEntityModal title=" Delete Category" :detail="selected" :isShowModal="modalOptions.isShowDeleteModal"
-            @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
+        <DeleteEntityModal title="Delete Category" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
+            @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 
 
     </section>
@@ -158,13 +159,7 @@ watch(() => searchQuery.query, (query) => {
 }
 )
 
-const getFilteredItem = (query) => {
-    if (!query) {
-        data.value = category.filterCategories('')
-        return
-    }
-    data.value = category.filterCategories(query)
-}
+
 
 const lengths = [
     { value: 10, name: 10 },
@@ -186,12 +181,15 @@ const toggleModal = (modelName, state, id = null, operation) => {
         const { _id, ...categoryWithoutId } = category.getById(id)
         if (operation == 'detail') {
             selectedCategory.value = categoryWithoutId
-        } else if (operation == 'edit') {
+        } else if (operation == 'edit' || operation == 'delete') {
             formData.value.name = categoryWithoutId.name
             formData.value.description = categoryWithoutId.description
             formData.value._id = _id
         }
-
+    } else {
+        formData.value.name = ''
+        formData.value.description = ''
+        formData.value._id = ''
     }
 }
 
@@ -216,6 +214,15 @@ const onSubmit = async (type) => {
             message.value = 'Successfully category updated!'
         }
 
+    } else if (type == 'delete') {
+        response = await category.deleteCategory(formData.value)
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowDeleteModal = false
+            message.value = 'Successfully category deleted!'
+            getFilteredItem('')
+        }
     }
 
     if (response) {
@@ -224,6 +231,14 @@ const onSubmit = async (type) => {
     }
 
 };
+
+const getFilteredItem = (query) => {
+    if (!query) {
+        data.value = category.filterCategories('')
+        return
+    }
+    data.value = category.filterCategories(query)
+}
 
 const handleOnSort = async (col) => {
     category.sort(col)

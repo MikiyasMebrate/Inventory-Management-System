@@ -74,6 +74,28 @@ export const useCategoryStore = defineStore('category', {
             }
             return false
         },
+        async deleteCategory(category) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.delete(`category/${category._id}`);
+                const index = this.categories.filter(obj => obj._id !== category._id);
+                if (index !== -1) {
+                    this.categories = index
+                }
+            } catch (error) {
+                console.log('Error deleting category:', error);
+                this.error = error.response?.data?.message || 'Failed to delete category';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
         sort(col) {
             if (this.sortColumn === col) {
                 // Reverse the sort direction
