@@ -74,9 +74,9 @@
 
         <!--Modals-->
         <!--Add Modal-->
-        <AddEntityModal title="Add Category" :isLoading="category.isLoading" :isShowAddModal="modalOptions.isShowAddModal"
-            @submit="onSubmit" @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category"
-            v-model="formData" />
+        <AddEntityModal title="Add Category" :isLoading="category.isLoading" :formError="category.error"
+            :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit"
+            @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category" v-model="formData" />
         <!--Detail Modal-->
         <DetailEntityModal title="Category detail" :detail="selected" :isShowModal="modalOptions.isShowDetailModal"
             @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />

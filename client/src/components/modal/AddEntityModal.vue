@@ -10,6 +10,12 @@
       </template>
 
       <template #body>
+
+        <fwb-alert class="text-center" v-if="formError" type="danger">
+          {{ formError }}
+        </fwb-alert>
+
+
         <CategoryForm v-if="entityType === 'category'" v-model="model" />
       </template>
       <template #footer>
@@ -25,7 +31,7 @@
 
 
 <script setup>
-import { FwbButton, FwbModal } from 'flowbite-vue'
+import { FwbButton, FwbModal, FwbAlert } from 'flowbite-vue'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 
 
@@ -37,7 +43,8 @@ const props = defineProps({
   title: String,
   isShowAddModal: Boolean,
   entityType: String,
-  isLoading: Boolean
+  isLoading: Boolean,
+  formError: Object
 });
 
 const model = defineModel({ required: true }) //form data
