@@ -9,7 +9,6 @@
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
         </div>
 
-        {{ selectedCategory }}
         <!--Page length option -->
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
             <fwb-select class="w-20" v-model="pageLength" :options="lengths"></fwb-select>
@@ -175,9 +174,12 @@ const lengths = [
 const toggleModal = (modelName, state, id = null) => {
     modalOptions.value[modelName] = state
     if (id) {
-        selectedCategory.value = category.getById(id)
-        delete selectedCategory.value._id;
+        const { _id, ...categoryWithoutId } = category.getById(id)
+        selectedCategory.value = categoryWithoutId
+
     }
+
+
 }
 
 
