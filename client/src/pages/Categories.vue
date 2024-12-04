@@ -51,10 +51,11 @@
                             <div class="flex ">
                                 <!--Detail-->
                                 <EyeIcon
-                                    @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal, item._id)"
+                                    @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal, item._id, 'detail')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Edit-->
-                                <PencilSquareIcon @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal)"
+                                <PencilSquareIcon
+                                    @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal, item._id, 'edit')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Delete-->
                                 <TrashIcon @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)"
@@ -125,7 +126,8 @@ const pagination = ref(1)
 const selectedCategory = ref({})
 const formData = ref({
     name: '',
-    description: ''
+    description: '',
+    _id: ''
 })
 
 
@@ -171,11 +173,16 @@ const lengths = [
  * @param {string} modelName - The name of the model to toggle.
  * @param {boolean} state - The state to toggle to.
  */
-const toggleModal = (modelName, state, id = null) => {
+const toggleModal = (modelName, state, id = null, operation) => {
     modalOptions.value[modelName] = state
     if (id) {
         const { _id, ...categoryWithoutId } = category.getById(id)
-        selectedCategory.value = categoryWithoutId
+        if (operation == 'detail') {
+            selectedCategory.value = categoryWithoutId
+        } else if (operation == 'edit') {
+            formData.value.name = categoryWithoutId.name
+            formData.value.description = categoryWithoutId.description
+        }
 
     }
 
