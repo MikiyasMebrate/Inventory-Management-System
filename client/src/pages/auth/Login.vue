@@ -1,6 +1,7 @@
 <script setup>
 import loginSVG from '@/assets/utility/Computer login-bro.svg';
-import { FwbInput } from 'flowbite-vue';
+import { FwbInput, FwbButton, FwbSpinner, FwbAlert } from 'flowbite-vue';
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth';
 import { useField, useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
@@ -22,13 +23,20 @@ const { value: password } = useField('password')
 
 // Auth store (optional functionality)
 const authStore = useAuthStore();
+const router = useRouter();
 
 // Submit handler
-const onSubmit = handleSubmit((value) => {
-    authStore.login({
+const onSubmit = handleSubmit(async (value) => {
+    const user = await authStore.login({
         email: value.email,
         password: value.password
     })
+
+    if (user) {
+        router.push('/dashboard');
+    }
+
+
 });
 </script>
 
@@ -49,6 +57,10 @@ const onSubmit = handleSubmit((value) => {
                     <!-- Login Form -->
                     <form @submit="onSubmit">
                         <div class="mb-4">
+
+                            <fwb-alert class="text-center" v-if="authStore.error" type="danger">
+                                {{ authStore.error }}
+                            </fwb-alert>
                             <!-- Email Input -->
                             <fwb-input v-model="email" type="email" validation-status="'success'" label="Email"
                                 placeholder="Enter your Email" size="lg" />
@@ -71,10 +83,13 @@ const onSubmit = handleSubmit((value) => {
                             <a href="#" class="text-sm text-indigo-700 hover:text-indigo-700">Forgot password?</a>
                         </div>
 
-                        <button type="submit"
-                            class="submit-btn w-full block text-center bg-indigo-900 text-white p-3 rounded-lg font-semibold hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                            Login
-                        </button>
+
+
+                        <fwb-button class="w-full" :disabled="authStore.isLoading" type="submit" size="lg">
+                            <span v-if="!authStore.isLoading">Login</span>
+                            <div v-if="authStore.isLoading" class="flex justify-center"><fwb-spinner size="6" /></div>
+                        </fwb-button>
+
                     </form>
                 </div>
             </div>

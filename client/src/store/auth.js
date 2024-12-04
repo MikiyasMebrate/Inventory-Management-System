@@ -39,15 +39,22 @@ export const useAuthStore = defineStore('auth', {
             this.error = null;
 
             try {
-                const response = await api.post('login', credentials);
-                this.setToken(response.data.token);
-                this.user = jwtDecode(this.token)?.user;
+                const response = await api.post('user/login', credentials);
+                this.setToken(response.data.accessToken);
+                this.user = jwtDecode(response.data.accessToken)?.user;
+
             } catch (error) {
                 console.error('Login error:', error);
                 this.error = error.response?.data?.message || 'Login failed';
             } finally {
                 this.isLoading = false;
             }
+
+            if (this.user) {
+                return true
+            }
+            return false
+
         },
 
         logout() {
