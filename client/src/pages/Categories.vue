@@ -9,6 +9,7 @@
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
         </div>
 
+        {{ selectedCategory }}
         <!--Page length option -->
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
             <fwb-select class="w-20" v-model="pageLength" :options="lengths"></fwb-select>
@@ -43,14 +44,15 @@
             </fwb-table-head>
             <fwb-table-body>
                 <template v-if="!category.isLoading">
-                    <fwb-table-row v-for="(item, index) in data" :key="item.id">
+                    <fwb-table-row v-for="(item, index) in data" :key="item._id">
                         <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
                         <fwb-table-cell>{{ item.name }}</fwb-table-cell>
                         <fwb-table-cell>{{ item.productCount }}</fwb-table-cell>
                         <fwb-table-cell>
                             <div class="flex ">
                                 <!--Detail-->
-                                <EyeIcon @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)"
+                                <EyeIcon
+                                    @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal, item._id)"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Edit-->
                                 <PencilSquareIcon @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal)"
@@ -79,7 +81,7 @@
             :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit"
             @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category" v-model="formData" />
         <!--Detail Modal-->
-        <DetailEntityModal title="Category detail" :detail="selected" :isShowModal="modalOptions.isShowDetailModal"
+        <DetailEntityModal title="Category detail" :detail="selectedCategory" :isShowModal="modalOptions.isShowDetailModal"
             @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
         <!--Edit Modal-->
         <EditEntityModal title="Edit Category" :isShowEditModal="modalOptions.isShowEditModal"
@@ -121,6 +123,7 @@ const searchQuery = reactive({
 })
 
 const pagination = ref(1)
+const selectedCategory = ref({})
 const formData = ref({
     name: '',
     description: ''
@@ -169,14 +172,14 @@ const lengths = [
  * @param {string} modelName - The name of the model to toggle.
  * @param {boolean} state - The state to toggle to.
  */
-const toggleModal = (modelName, state) => {
+const toggleModal = (modelName, state, id = null) => {
     modalOptions.value[modelName] = state
+    if (id) {
+        selectedCategory.value = category.getById(id)
+        delete selectedCategory.value._id;
+    }
 }
 
-const selected = {
-    name: 'Apple MacBook Pro 17',
-    description: 'Electronics is a scientific and engineering discipline that studies and applies the principles of physics to design, create, and operate devices.'
-}
 
 
 

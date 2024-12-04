@@ -10,12 +10,6 @@ export const useCategoryStore = defineStore('category', {
         sortDirection: 1,
 
     }),
-
-    getters: {
-        getCategories: (state) => state.categories,
-        searchCategories: (state) => (searchTerm) => state.categories.filter(category => category.name.toLowerCase().includes(searchTerm.toLowerCase())),
-    },
-
     actions: {
         async fetchCategories() {
             this.isLoading = true;
@@ -78,7 +72,11 @@ export const useCategoryStore = defineStore('category', {
                     return this.sortDirection * (a.productCount - b.productCount);
                 });
             }
+        },
+        getById(id) {
+            return this.categories.find(category => category._id === id);
         }
+
 
     }
 })
