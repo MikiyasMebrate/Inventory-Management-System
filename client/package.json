@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
+    "@vee-validate/zod": "^4.14.7",
     "axios": "^1.7.8",
     "flowbite": "^2.5.2",
     "flowbite-vue": "^0.1.6",
@@ -18,7 +19,7 @@
     "vee-validate": "^4.14.7",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
-    "yup": "^1.5.0"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
