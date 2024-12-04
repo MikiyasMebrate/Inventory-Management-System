@@ -45,7 +45,7 @@
                     <fwb-table-row v-for="(item, index) in data" :key="item.id">
                         <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
                         <fwb-table-cell>{{ item.name }}</fwb-table-cell>
-                        <fwb-table-cell> 99</fwb-table-cell>
+                        <fwb-table-cell>{{ item.productCount }}</fwb-table-cell>
                         <fwb-table-cell>
                             <div class="flex ">
                                 <!--Detail-->
@@ -99,7 +99,7 @@ import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
 import Button from '@/components/ui/Button.vue';
 import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
-import { ref } from 'vue'
+import { ref, onMounted, watch, reactive } from 'vue'
 import { useCategoryStore } from '@/store/category';
 import {
     FwbSelect, FwbInput,
@@ -111,13 +111,21 @@ import {
     FwbTableRow,
     FwbPagination
 } from 'flowbite-vue'
-import { onMounted } from 'vue';
-import { watch } from 'vue';
-import { reactive } from 'vue';
 
-const data = ref([])
+const data = ref([]) //categories data
+const pageLength = ref(10)
+const searchQuery = reactive({
+    query: ''
+})
+
+const pagination = ref(1)
+const formData = ref({
+    name: '',
+    description: ''
+})
+
+
 const category = useCategoryStore()
-
 onMounted(async () => {
     await category.fetchCategories()
     getFilteredItem('')
@@ -131,18 +139,6 @@ const modalOptions = ref({
     isShowDeleteModal: false,
 })
 
-const pageLength = ref(10)
-const searchQuery = reactive({
-    query: ''
-})
-
-const pagination = ref(1)
-const formData = ref({
-    name: '',
-    description: ''
-})
-
-
 
 watch(() => searchQuery.query, (query) => {
     getFilteredItem(query || null)
@@ -151,14 +147,11 @@ watch(() => searchQuery.query, (query) => {
 
 const getFilteredItem = (query) => {
     if (!query) {
-        data.value = category.filterCategories()
+        data.value = category.filterCategories('')
         return
     }
-
     data.value = category.filterCategories(query)
 }
-
-
 
 const lengths = [
     { value: 10, name: 10 },
@@ -168,6 +161,12 @@ const lengths = [
 ]
 
 
+/**
+ * Toggle the state of a modal.
+ *
+ * @param {string} modelName - The name of the model to toggle.
+ * @param {boolean} state - The state to toggle to.
+ */
 const toggleModal = (modelName, state) => {
     modalOptions.value[modelName] = state
 }
