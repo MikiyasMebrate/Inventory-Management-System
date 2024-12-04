@@ -35,6 +35,26 @@ export const useCategoryStore = defineStore('category', {
             return this.categories.filter(category =>
                 category.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
+        },
+        async addCategory(category) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.post('category', category);
+                this.categories.push(response.data);
+            } catch (error) {
+                console.log('Error adding category:', error);
+                this.error = error.response?.data?.message || 'Failed to add category';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
         }
+
     }
 })

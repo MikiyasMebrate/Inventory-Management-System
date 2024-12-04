@@ -74,8 +74,9 @@
 
         <!--Modals-->
         <!--Add Modal-->
-        <AddEntityModal title="Add Category" :isShowAddModal="modalOptions.isShowAddModal"
-            @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category" v-model="formData" />
+        <AddEntityModal title="Add Category" :isLoading="category.isLoading" :isShowAddModal="modalOptions.isShowAddModal"
+            @submit="onSubmit" @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="category"
+            v-model="formData" />
         <!--Detail Modal-->
         <DetailEntityModal title="Category detail" :detail="selected" :isShowModal="modalOptions.isShowDetailModal"
             @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
@@ -175,6 +176,19 @@ const selected = {
     name: 'Apple MacBook Pro 17',
     description: 'Electronics is a scientific and engineering discipline that studies and applies the principles of physics to design, create, and operate devices.'
 }
+
+
+
+const onSubmit = async () => {
+    let response = await category.addCategory(formData.value)
+
+    if (response) {
+        formData.value.name = ''
+        formData.value.description = ''
+        modalOptions.value.isShowAddModal = false
+    }
+
+};
 
 
 </script>
