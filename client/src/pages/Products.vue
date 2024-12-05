@@ -4,10 +4,13 @@
     <section class="mt-5">
         <p class="my-5 text-3xl font-bold">List</p>
 
-        <!--Message-->
-        <div class="w-full md:w-1/2 ">
-            <Alert @close="clearMessage" v-if="message" :title="message" type="success" />
+        <!--Messages-->
+        <div class="flex justify-center">
+            <div class="w-full md:w-1/2 ">
+                <Alert @close="clearMessage" v-if="message" :title="message" type="success" />
+            </div>
         </div>
+
 
         <!--Product Button-->
         <div class="flex justify-end my-3">
@@ -90,7 +93,8 @@
 
     <!--Modal lists-->
     <!--Add Modal-->
-    <AddEntityModal title="Add Product" :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit('post')"
+    <AddEntityModal title="Add Product" :isLoading="product.isLoading" :formError="product.error"
+        :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit('post')"
         @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="product" v-model="formData" />
     <!--Detail Modal-->
     <DetailEntityModal title="Category detail" :detail="selectedProduct" :isShowModal="modalOptions.isShowDetailModal"
@@ -143,6 +147,8 @@ const formData = ref({
     name: '',
     description: '',
     price: '',
+    category: '',
+    images: '',
     quantity: 0,
 
 })
@@ -177,6 +183,27 @@ const toggleModal = (modelName, state, id = null, operation) => {
 }
 
 const onSubmit = async (type) => {
+    let response = null
+    if (type == 'post') {
+        response = await product.addProduct(formData.value)
+
+        //hide add modal
+        if (response) {
+            modalOptions.value.isShowAddModal = false
+            message.value = 'Successfully product added!'
+        }
+    }
+
+    if (response) {
+        formData.value._id = ''
+        formData.value.name = ''
+        formData.value.description = ''
+        formData.value.price = ''
+        formData.value.category = ''
+        formData.value.images = ''
+        formData.value.quantity = 0
+    }
+
 };
 
 const getFilteredItem = (query) => {

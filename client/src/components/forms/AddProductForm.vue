@@ -14,13 +14,17 @@
         </div>
 
         <div class="col-span-1">
-            <fwb-input v-model="model.quantity" label="Quantity" min="1" placeholder="Product quantity" size="lg" />
+            <fwb-input v-model="model.quantity" type="number" label="Quantity" min="1" placeholder="Product quantity"
+                size="lg" />
         </div>
 
         <div class="col-span-2">
-            <fwb-select v-model="selected" :options="category.getCategoryOptions" label="Select category" />
+            <fwb-select v-model="model.category" :options="category.getCategoryOptions" label="Select category" size="lg" />
         </div>
 
+        <div class="col-span-2">
+            <fwb-input v-model="model.images" type="url" label="Images url" placeholder="Product Image" size="lg" />
+        </div>
 
         <div class="col-span-2">
             <fwb-textarea v-model="model.description" :rows="10" label="Description" placeholder="Write Description..." />

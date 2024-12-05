@@ -25,6 +25,31 @@ export const useProductStore = defineStore('product', {
                 this.isLoading = false;
             }
         },
+        async addProduct(product) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.post('product', {
+                    "category": product.category,
+                    "name": product.description,
+                    "price": product.price,
+                    "quantityInStock": product.quantity,
+                    "images": [product.images]
+                });
+                this.products.push(response.data);
+            } catch (error) {
+                console.log('Error adding product:', error);
+                this.error = error.response?.data?.message || 'Failed to add product';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
         filterProduct(searchTerm) {
             if (!searchTerm) {
                 return this.products; // Return all categories if search is empty
