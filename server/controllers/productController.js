@@ -235,7 +235,12 @@ const updateProduct = [
             }
         }
 
-        res.status(200).json(updatedProduct)
+        const populatedProduct = await updatedProduct.populate({
+            path: 'category',
+            select: 'name',
+        })
+
+        res.status(200).json(populatedProduct)
     })
 ]
 

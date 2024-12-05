@@ -122,10 +122,16 @@ const createInventoryTransaction = [
             }
         }
 
+        //
+        const populatedProduct = await productRecord.populate({
+            path: 'category',
+            select: 'name',
+        })
+
         // Respond with the created transaction and updated product details
         res.status(201).json({
             transaction,
-            updatedProduct: productRecord,
+            updatedProduct: populatedProduct,
         });
     })
 ];
