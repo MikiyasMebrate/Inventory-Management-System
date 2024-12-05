@@ -220,6 +220,7 @@ const toggleModal = (modelName, state, id = null, operation) => {
             selectedProduct.value = { categoryName, ...productWithoutId }
         } else if (operation == 'sale' || operation == 'restock') {
             selectedProduct.value = product.getById(id)
+            transactionForm.value.priceAtTransaction = selectedProduct.value.price
             transactionForm.value.requestType = operation == 'sale' ? 'Sale Product' : 'Restock Product'
         }
         else if (operation == 'edit' || operation == 'delete') {
