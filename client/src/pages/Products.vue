@@ -84,6 +84,10 @@
                                 <TagIcon v-if="user.userRole == 'salesperson'"
                                     @click="toggleModal('isShowTransactionModal', !modalOptions.isShowTransactionModal, item._id, 'sale')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                                <!--Return-->
+                                <ArrowUturnLeftIcon v-if="user.userRole == 'salesperson'"
+                                    @click="toggleModal('isShowTransactionModal', !modalOptions.isShowTransactionModal, item._id, 'return')"
+                                    class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Restock-->
                                 <ArchiveBoxArrowDownIcon v-if="user.userRole == 'storekeeper'"
                                     @click="toggleModal('isShowTransactionModal', !modalOptions.isShowTransactionModal, item._id, 'restock')"
@@ -142,7 +146,8 @@ import {
     TrashIcon,
     EyeIcon,
     TagIcon,
-    ArchiveBoxArrowDownIcon
+    ArchiveBoxArrowDownIcon,
+    ArrowUturnLeftIcon
 } from '@heroicons/vue/24/solid'
 import {
     FwbTable,
@@ -218,10 +223,10 @@ const toggleModal = (modelName, state, id = null, operation) => {
         const { _id, isActive, __v, images, category: { name: categoryName }, ...productWithoutId } = product.getById(id)
         if (operation == 'detail') {
             selectedProduct.value = { categoryName, ...productWithoutId }
-        } else if (operation == 'sale' || operation == 'restock') {
+        } else if (operation == 'sale' || operation == 'restock' || operation == 'return') {
             selectedProduct.value = product.getById(id)
             transactionForm.value.priceAtTransaction = selectedProduct.value.price
-            transactionForm.value.requestType = operation == 'sale' ? 'Sale Product' : 'Restock Product'
+            transactionForm.value.requestType = operation == 'sale' ? 'Sale Product' : (operation == 'restock' ? 'Restock Product' : 'Return Product')
         }
         else if (operation == 'edit' || operation == 'delete') {
 
@@ -296,7 +301,19 @@ const onSubmit = async (type) => {
         //hide edit modal
         if (response) {
             modalOptions.value.isShowTransactionModal = false
-            message.value = 'Successfully product sold!'
+            message.value = 'Successfully product restocked!'
+        }
+    } else if (type == 'Return Product') {
+        response = await product.saleProduct({
+            "product": selectedProduct.value._id,
+            "actionType": "return",
+            "quantity": transactionForm.value.quantity,
+        })
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowTransactionModal = false
+            message.value = 'Successfully product returned!'
         }
     }
 

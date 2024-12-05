@@ -28,10 +28,11 @@
                     <div class="col-span-2">
                         <img class="md:w-56" :src="detail.images[0]" alt="">
                     </div>
-                    <div class="col-span-1">
+                    <div v-if="title == 'Restock Product'" class="col-span-1">
                         <fwb-input v-model="model.priceAtTransaction" type="number" label="Price"
                             placeholder="Product quantity" size="lg" step="0.1" />
                     </div>
+                    <div v-else class="col-span-1"></div>
 
                     <div class="col-span-1">
                         <fwb-input v-model="model.quantity" type="number" label="Quantity" min="1"
@@ -42,7 +43,7 @@
             <template #footer>
                 <div class="flex justify-end">
                     <fwb-button @click="closeModal" color="blue">
-                        {{ title == '' ? 'Sale Product' : 'Restock' }}
+                        {{ title == 'Sale Product' ? 'Sale' : title == 'Restock Product' ? 'Restock' : 'Return' }}
                     </fwb-button>
                 </div>
             </template>

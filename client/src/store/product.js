@@ -154,6 +154,31 @@ export const useProductStore = defineStore('product', {
             }
             return false
         },
+        async returnProduct(product) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.post(`inventory-transactions`, product);
+
+                const index = this.products.findIndex(item => item._id === product.product);
+
+                if (index !== -1) {
+                    this.products[index] = response.data.updatedProduct;
+                }
+
+            } catch (error) {
+                console.log('Error return product:', error);
+                this.error = error.response?.data?.message || 'Failed to return product';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
         filterProduct(searchTerm) {
             if (!searchTerm) {
                 return this.products; // Return all categories if search is empty
