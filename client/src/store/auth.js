@@ -12,9 +12,19 @@ export const useAuthStore = defineStore('auth', {
 
     getters: {
         isAuthenticated: (state) => !!state.token,
-        getUser: (state) => state.user,
+        getUser: (state) => {
+            if (state.token) {
+                return jwtDecode(state.token)?.user || null;
+            }
+            return null
+        },
         getError: (state) => state.error,
-        userRole: (state) => state.user?.role || null,
+        userRole: (state) => {
+            if (state.token) {
+                return jwtDecode(state.token)?.user?.role || null;
+            }
+            return null
+        }
     },
 
     actions: {
@@ -41,7 +51,7 @@ export const useAuthStore = defineStore('auth', {
             try {
                 const response = await api.post('user/login', credentials);
                 this.setToken(response.data.accessToken);
-                this.user = jwtDecode(response.data.accessToken)?.user;
+                this.user = jwtDecode(this.token);
 
             } catch (error) {
                 console.error('Login error:', error);

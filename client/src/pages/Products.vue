@@ -19,6 +19,7 @@
         <fwb-table hoverable>
             <fwb-table-head>
                 <fwb-table-head-cell>#</fwb-table-head-cell>
+                <fwb-table-head-cell></fwb-table-head-cell>
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Name</p>
@@ -47,13 +48,6 @@
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
-                    <div class="flex justify-between">
-                        <p>Date</p>
-                        <ArrowsUpDownIcon @click="handleOnSort('productCount')"
-                            class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                    </div>
-                </fwb-table-head-cell>
-                <fwb-table-head-cell>
                     <span class="sr-only">Edit</span>
                 </fwb-table-head-cell>
             </fwb-table-head>
@@ -61,11 +55,13 @@
                 <template v-if="!product.isLoading">
                     <fwb-table-row v-for="(item, index) in data" :key="item._id">
                         <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
+                        <fwb-table-cell><img class="w-10" :src="item?.images[0]" alt="" srcset=""></fwb-table-cell>
                         <fwb-table-cell>{{ item.name }}</fwb-table-cell>
-                        <fwb-table-cell>{{ item.name }}</fwb-table-cell>
-                        <fwb-table-cell>{{ item.name }}</fwb-table-cell>
-                        <fwb-table-cell>{{ item.name }}</fwb-table-cell>
-                        <fwb-table-cell>{{ item.name }}</fwb-table-cell>
+                        <fwb-table-cell> <span><fwb-badge type="indigo">{{ item.category.name }}</fwb-badge></span>
+                        </fwb-table-cell>
+                        <fwb-table-cell> <fwb-badge :type="item.quantityInStock <= 10 ? 'red' : 'green'">{{
+                            item.quantityInStock }}</fwb-badge> </fwb-table-cell>
+                        <fwb-table-cell class="font-bold">${{ item.price }}</fwb-table-cell>
 
                         <fwb-table-cell>
                             <div class="flex ">
@@ -74,11 +70,11 @@
                                     @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal, item._id, 'detail')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Edit-->
-                                <PencilSquareIcon
+                                <PencilSquareIcon v-if="user.userRole == 'admin'"
                                     @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal, item._id, 'edit')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Delete-->
-                                <TrashIcon
+                                <TrashIcon v-if="user.userRole == 'admin'"
                                     @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal, item._id, 'delete')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             </div>
@@ -96,6 +92,9 @@
     <!--Add Modal-->
     <AddEntityModal title="Add Product" :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit('post')"
         @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="product" v-model="formData" />
+    <!--Detail Modal-->
+    <DetailEntityModal title="Category detail" :detail="selectedProduct" :isShowModal="modalOptions.isShowDetailModal"
+        @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
 </template>
 
 <script setup>
@@ -103,6 +102,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import Alert from '@/components/ui/Alert.vue';
 import Button from '@/components/ui/Button.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
+import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
 import { ref } from 'vue';
 import { useProductStore } from '@/store/product';
 import { onMounted } from 'vue';
@@ -114,9 +114,13 @@ import {
     FwbTableHead,
     FwbTableHeadCell,
     FwbTableRow,
+    FwbBadge,
     FwbPagination
 } from 'flowbite-vue'
+import { useAuthStore } from '@/store/auth';
 
+//user store
+const user = useAuthStore()
 //product store
 const product = useProductStore()
 onMounted(async () => {
@@ -128,6 +132,7 @@ onMounted(async () => {
 
 const message = ref('')
 const data = ref([]) //products data
+const selectedProduct = ref({})
 const formData = ref({
     name: '',
     description: '',
@@ -153,6 +158,14 @@ const clearMessage = () => {
 //control modal 
 const toggleModal = (modelName, state, id = null, operation) => {
     modalOptions.value[modelName] = state
+
+    if (id) {
+        const { _id, isActive, __v, images, category: { name: categoryName }, ...productWithoutId } = product.getById(id)
+        if (operation == 'detail') {
+            console.log(categoryName)
+            selectedProduct.value = { categoryName, ...productWithoutId }
+        }
+    }
 }
 
 const onSubmit = async (type) => {

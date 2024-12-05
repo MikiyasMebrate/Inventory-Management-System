@@ -1,6 +1,8 @@
 <script setup>
 import logoDark from '@/assets/logo/logo-dark.png'
 import userIcon from '@/assets/images/user.webp'
+import { useAuthStore } from '@/store/auth';
+const user = useAuthStore()
 </script>
 
 <template>
@@ -8,8 +10,8 @@ import userIcon from '@/assets/images/user.webp'
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
-                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
-                        aria-controls="logo-sidebar" type="button"
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
+                        type="button"
                         class="inline-flex items-center p-2 text-sm rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gra y-200 dark:text-inbg-indigo-700 hover:text-white dark:focus:ring-gray-600">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -19,7 +21,7 @@ import userIcon from '@/assets/images/user.webp'
                             </path>
                         </svg>
                     </button>
-                    <router-link :to="{name : 'dashboard'}" active-class="" class="flex ms-2 md:me-24">
+                    <router-link :to="{ name: 'dashboard' }" active-class="" class="flex ms-2 md:me-24">
                         <img :src="logoDark" class="h-8 me-3" alt="Logo" />
                     </router-link>
                 </div>
@@ -36,23 +38,23 @@ import userIcon from '@/assets/images/user.webp'
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                             id="dropdown-user">
                             <div class="px-4 py-3" role="none">
-                                <p class="text-sm dark:text-e">
-                                    Mikiyas Mebrate
+                                <p class="text-sm dark:text-e capitalize">
+                                    {{ user.getUser?.firstName }} {{ user.getUser?.lastName }}
                                 </p>
-                                <p class="text-sm font-medium truncate d0" role="none">
-                                    mikiyasmebrate@gmail.com
+                                <p class="text-sm font-medium truncate d0 " role="none">
+                                    {{ user.getUser?.email }}
                                 </p>
                             </div>
                             <ul class="py-1" role="none">
 
                                 <li>
-                                    <router-link :to="{name : 'notification-preferences'}"
+                                    <router-link :to="{ name: 'notification-preferences' }"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Notification Preference
                                     </router-link>
                                 </li>
                                 <li>
-                                    <router-link :to="{name : 'login'}"
+                                    <router-link @click="user.logout" :to="{ name: 'login' }"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Sign out
                                     </router-link>

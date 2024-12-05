@@ -33,6 +33,9 @@ export const useProductStore = defineStore('product', {
                 product.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
         },
+        getById(id) {
+            return this.products.find(product => product._id === id);
+        }
     }
 })
 
