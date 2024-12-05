@@ -187,6 +187,35 @@ export const useProductStore = defineStore('product', {
                 product.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
         },
+        sort(col) {
+            if (this.sortColumn === col) {
+                // Reverse the sort direction
+                this.sortDirection *= -1;
+            } else {
+                // Set new column and default to ascending
+                this.sortColumn = col;
+                this.sortDirection = 1;
+            }
+
+            // Sort based on column and direction
+            if (col === 'name') {
+                this.products.sort((a, b) => {
+                    return this.sortDirection * a.name.localeCompare(b.name);
+                });
+            } else if (col === 'quantity') {
+                this.products.sort((a, b) => {
+                    return this.sortDirection * (a.quantityInStock - b.quantityInStock);
+                });
+            } else if (col === 'price') {
+                this.products.sort((a, b) => {
+                    return this.sortDirection * (a.price - b.price);
+                });
+            } else if (col === 'category') {
+                this.products.sort((a, b) => {
+                    return this.sortDirection * a.category.name.localeCompare(b.category.name);
+                });
+            }
+        },
         getById(id) {
             return this.products.find(product => product._id === id);
         },

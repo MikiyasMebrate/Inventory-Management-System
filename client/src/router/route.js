@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/store/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -11,6 +12,15 @@ const routes = [
         name: 'layout',
         component: () => import('@/layouts/Layout.vue'),
         redirect: '/dashboard',
+        beforeEnter: (to, from, next) => {
+            const userAuth = useAuthStore()
+            if (userAuth.token) {
+                next();
+            } else {
+                next({ name: 'login', query: { redirect: to.fullPath } });
+            }
+
+        },
         children: [
             {
                 path: 'dashboard',
@@ -57,5 +67,7 @@ const router = createRouter({
     routes,
     linkActiveClass: 'bg-indigo-700 text-white'
 })
+
+
 
 export default router

@@ -42,21 +42,21 @@
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Category</p>
-                        <ArrowsUpDownIcon @click="handleOnSort('productCount')"
+                        <ArrowsUpDownIcon @click="handleOnSort('category')"
                             class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Quantity</p>
-                        <ArrowsUpDownIcon @click="handleOnSort('productCount')"
+                        <ArrowsUpDownIcon @click="handleOnSort('quantity')"
                             class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Price</p>
-                        <ArrowsUpDownIcon @click="handleOnSort('productCount')"
+                        <ArrowsUpDownIcon @click="handleOnSort('price')"
                             class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
@@ -366,6 +366,10 @@ const getFilteredItem = (query) => {
         return
     }
     data.value = product.filterProduct(query)
+}
+
+const handleOnSort = async (col) => {
+    product.sort(col)
 }
 
 </script>
