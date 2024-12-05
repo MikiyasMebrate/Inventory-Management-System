@@ -14,7 +14,7 @@
                     {{ formError }}
                 </fwb-alert>
 
-                <div class="grid gap-4 mb-4 grid-cols-2">
+                <div v-if="title == 'Sale Product'" class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-1">
                         <label>Name</label>
                         <p class="text-gray-500">{{ detail.name }}</p>

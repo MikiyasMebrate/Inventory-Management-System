@@ -115,9 +115,10 @@
     <DeleteEntityModal title="Delete product" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
         @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 
-    <!--Sale Modal-->
-    <TransactionModal title="Sale Product" :isLoading="product.isLoading" :formError="product.error"
-        :detail="selectedProduct" :isShowModal="modalOptions.isShowTransactionModal" @submit="onSubmit('sale')"
+    <!--Transaction Modal-->
+    <TransactionModal :title="transactionForm.requestType" :isLoading="product.isLoading" :formError="product.error"
+        :detail="selectedProduct" :isShowModal="modalOptions.isShowTransactionModal"
+        @submit="onSubmit(transactionForm.requestType)"
         @close="toggleModal('isShowTransactionModal', !modalOptions.isShowTransactionModal)" v-model="transactionForm" />
 </template>
 
@@ -187,7 +188,8 @@ const formData = ref({
 
 const transactionForm = ref({
     quantity: 1,
-    priceAtTransaction: 1
+    priceAtTransaction: 1,
+    requestType: '',  // sale, restock, return 
 })
 
 //control modal hide and show
@@ -218,6 +220,7 @@ const toggleModal = (modelName, state, id = null, operation) => {
             selectedProduct.value = { categoryName, ...productWithoutId }
         } else if (operation == 'sale' || operation == 'restock') {
             selectedProduct.value = product.getById(id)
+            transactionForm.value.requestType = operation == 'sale' ? 'Sale Product' : 'Restock Product'
         }
         else if (operation == 'edit' || operation == 'delete') {
 
@@ -269,7 +272,7 @@ const onSubmit = async (type) => {
             message.value = 'Successfully category deleted!'
             getFilteredItem('')
         }
-    } else if (type == 'sale') {
+    } else if (type == 'Sale Product') {
         response = await product.saleProduct({
             "product": selectedProduct.value._id,
             "actionType": "sale",
