@@ -11,7 +11,10 @@ const createNotification = require("../services/notificationService")
  * @access private
  */
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({})
+    const products = await Product.find({}).populate({
+        path: 'category',
+        select: 'name'
+    })
     res.status(200).json(products)
 })
 
@@ -227,12 +230,6 @@ const updateProduct = [
         res.status(200).json(updatedProduct)
     })
 ]
-
-/**
- * @desc update product
- * @route PUT /api/product/id
- * @access private
- */
 
 module.exports = {
     getProducts,

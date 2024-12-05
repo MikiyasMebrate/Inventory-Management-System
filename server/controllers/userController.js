@@ -108,8 +108,10 @@ const loginUser = [
       const accessToken = jwt.sign({
         //payload
         user: {
-          email: user.email,
           id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
           role: user.role,
         }
       },
