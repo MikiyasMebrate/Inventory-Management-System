@@ -112,9 +112,8 @@
         @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 
     <!--Sale Modal-->
-    <SaleProductModal title="Sale Product" :isShowSaleModal="modalOptions.isShowSaleModal"
-        @close="toggleModal('isShowSaleModal', !modalOptions.isShowSaleModal)" entityType="product" v-model="formData"
-        @submit="onSubmit('put-sale')" />
+    <SaleProductModal title="Sale Product" :detail="selectedProduct" :isShowModal="modalOptions.isShowSaleModal"
+        @close="toggleModal('isShowSaleModal', !modalOptions.isShowSaleModal)" v-model="saleProductForm" />
 </template>
 
 <script setup>
@@ -173,6 +172,10 @@ const formData = ref({
 
 })
 
+const saleProductForm = ref({
+    quantity: 1,
+})
+
 //control modal hide and show
 const modalOptions = ref({
     isShowAddModal: false,
@@ -194,11 +197,16 @@ const clearMessage = () => {
 const toggleModal = (modelName, state, id = null, operation) => {
     modalOptions.value[modelName] = state
 
+
+
     if (id) {
         const { _id, isActive, __v, images, category: { name: categoryName }, ...productWithoutId } = product.getById(id)
         if (operation == 'detail') {
             selectedProduct.value = { categoryName, ...productWithoutId }
-        } else if (operation == 'edit' || operation == 'delete') {
+        } else if (operation == 'sale') {
+            selectedProduct.value = product.getById(id)
+        }
+        else if (operation == 'edit' || operation == 'delete') {
 
             const selectedProductItem = product.getById(id)
 
