@@ -12,7 +12,7 @@
         </div>
 
         <!--Add category button-->
-        <div class="flex justify-end my-3">
+        <div v-if="userStore.userRole == 'admin'" class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
         </div>
 
@@ -61,11 +61,11 @@
                                     @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal, item._id, 'detail')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Edit-->
-                                <PencilSquareIcon
+                                <PencilSquareIcon v-if="userStore.userRole == 'admin'"
                                     @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal, item._id, 'edit')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Delete-->
-                                <TrashIcon
+                                <TrashIcon v-if="userStore.userRole == 'admin'"
                                     @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal, item._id, 'delete')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             </div>
@@ -124,6 +124,7 @@ import {
     FwbTableRow,
     FwbPagination
 } from 'flowbite-vue'
+import { useAuthStore } from '@/store/auth';
 
 
 //Category Store
@@ -155,6 +156,7 @@ const modalOptions = ref({
     isShowDetailModal: false,
     isShowDeleteModal: false,
 })
+const userStore = useAuthStore()
 
 watch(() => searchQuery.query, (query) => {
     getFilteredItem(query || null)
