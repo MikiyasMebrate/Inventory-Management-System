@@ -10,6 +10,14 @@ export const useCategoryStore = defineStore('category', {
         sortDirection: 1,
 
     }),
+    getters: {
+        getCategoryOptions(state) {
+            return state.categories.map(category => ({
+                value: category._id,
+                name: category.name,
+            }));
+        },
+    },
     actions: {
         async fetchCategories() {
             this.isLoading = true;

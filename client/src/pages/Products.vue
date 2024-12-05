@@ -118,13 +118,18 @@ import {
     FwbPagination
 } from 'flowbite-vue'
 import { useAuthStore } from '@/store/auth';
+import { useCategoryStore } from '@/store/category';
 
 //user store
 const user = useAuthStore()
+
+//category
+const categoryList = useCategoryStore()
 //product store
 const product = useProductStore()
 onMounted(async () => {
     await product.fetchProducts()
+    await categoryList.fetchCategories()
     getFilteredItem('')
 })
 
@@ -134,9 +139,12 @@ const message = ref('')
 const data = ref([]) //products data
 const selectedProduct = ref({})
 const formData = ref({
+    _id: '',
     name: '',
     description: '',
-    _id: ''
+    price: '',
+    quantity: 0,
+
 })
 
 //control modal hide and show

@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="emitSubmit" v-if="entityType == 'category'" class="p-4 md:p-5">
+  <form @submit.prevent="emitSubmit" class="p-4 md:p-5">
     <fwb-modal v-if="isShowAddModal" @close="emitClose"
       class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
 
@@ -17,6 +17,8 @@
 
 
         <CategoryForm v-if="entityType === 'category'" v-model="model" />
+        <AddProductForm v-if="entityType === 'product'" v-model="model" />
+
       </template>
       <template #footer>
         <div class="flex justify-end">
@@ -33,6 +35,7 @@
 <script setup>
 import { FwbButton, FwbModal, FwbAlert } from 'flowbite-vue'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
+import AddProductForm from '@/components/forms/AddProductForm.vue'
 
 
 // const { isShowAddModal, entityType, title } = defineProps(['isShowAddModal', 'entityType', 'title'])
