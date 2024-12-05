@@ -2,7 +2,7 @@
     <Breadcrumb name="Product" />
 
     <section class="mt-5">
-        <p class="my-5 text-3xl font-bold">List {{ formData.images }}</p>
+        <p class="my-5 text-3xl font-bold">List</p>
 
         <!--Messages-->
         <div class="flex justify-center">
@@ -103,6 +103,9 @@
     <EditEntityModal title="Edit Product" :isShowEditModal="modalOptions.isShowEditModal"
         @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="product" v-model="formData"
         @submit="onSubmit('put')" />
+    <!--Delete Modal-->
+    <DeleteEntityModal title="Delete product" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
+        @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 </template>
 
 <script setup>
@@ -112,6 +115,7 @@ import Button from '@/components/ui/Button.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
 import EditEntityModal from '@/components/modal/EditEntityModal.vue';
+import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
 import { ref } from 'vue';
 import { useProductStore } from '@/store/product';
 import { onMounted } from 'vue';
@@ -222,6 +226,15 @@ const onSubmit = async (type) => {
         if (response) {
             modalOptions.value.isShowEditModal = false
             message.value = 'Successfully product updated!'
+        }
+    } else if (type == 'delete') {
+        response = await product.deleteProduct(formData.value)
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowDeleteModal = false
+            message.value = 'Successfully category deleted!'
+            getFilteredItem('')
         }
     }
 

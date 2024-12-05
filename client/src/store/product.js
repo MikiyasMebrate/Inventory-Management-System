@@ -90,6 +90,29 @@ export const useProductStore = defineStore('product', {
             }
             return false
         },
+
+        async deleteProduct(product) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.delete(`product/${product._id}`);
+                const index = this.products.filter(obj => obj._id !== product._id);
+                if (index !== -1) {
+                    this.products = index
+                }
+            } catch (error) {
+                console.log('Error deleting product:', error);
+                this.error = error.response?.data?.message || 'Failed to delete product';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
         filterProduct(searchTerm) {
             if (!searchTerm) {
                 return this.products; // Return all categories if search is empty
