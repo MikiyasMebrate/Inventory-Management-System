@@ -12,11 +12,11 @@ const router = express.Router()
 
 router.route('/')
     .get(validateTokenHandler, getProducts)
-    .post(validateTokenHandler, roleMiddleware(['storekeeper']), createProduct)
+    .post(validateTokenHandler, roleMiddleware(['storekeeper', 'admin']), createProduct)
 
 router.route('/:id')
-    .delete(validateTokenHandler, roleMiddleware(['storekeeper']), deleteProduct)
-    .put(validateTokenHandler, roleMiddleware(['storekeeper']), updateProduct)
+    .delete(validateTokenHandler, roleMiddleware(['admin']), deleteProduct)
+    .put(validateTokenHandler, roleMiddleware(['storekeeper', 'admin']), updateProduct)
 
 
 module.exports = router

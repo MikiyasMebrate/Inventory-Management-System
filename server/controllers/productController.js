@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Product = require('../models/productModel')
 const Category = require("../models/categoryModel")
 const NotificationPreference = require('../models/notificationPreference')
+const User = require("../models/userModel")
 const createNotification = require("../services/notificationService")
 
 /**
@@ -54,7 +55,6 @@ const createProduct = [
         .optional()
         .isBoolean().withMessage('isActive must be a boolean'),
     check('images')
-        .optional()
         .isArray().withMessage('Images must be an array')
         .custom((value) => {
             if (value.length > 0) {
@@ -92,7 +92,6 @@ const createProduct = [
         const product = await Product.create(req.body)
 
         if (product) {
-            res.status(201).json(product)
 
             //notification
             const users = await User.find()
@@ -104,6 +103,15 @@ const createProduct = [
                     await createNotification(user._id, `New Product added: ${product.name}`); // Add notification
                 }
             }
+
+            const populatedProduct = await product.populate({
+                path: 'category',
+                select: 'name',
+            })
+
+            res.status(201).json(populatedProduct);
+
+
         } else {
             res.status(400)
             throw new Error("product data is not valid")
