@@ -11,6 +11,8 @@
 
       <template #body>
         <CategoryForm v-if="entityType === 'category'" v-model="model" />
+        <AddProductForm v-if="entityType === 'product'" v-model="model" />
+
       </template>
       <template #footer>
         <div class="flex justify-end">
@@ -27,6 +29,7 @@
 <script setup>
 import { FwbButton, FwbModal } from 'flowbite-vue'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
+import AddProductForm from '../forms/AddProductForm.vue';
 
 
 // const { isShowEditModal, entityType, title } = defineProps(['isShowEditModal', 'entityType', 'title'])

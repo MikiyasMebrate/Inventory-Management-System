@@ -2,7 +2,7 @@
     <Breadcrumb name="Product" />
 
     <section class="mt-5">
-        <p class="my-5 text-3xl font-bold">List</p>
+        <p class="my-5 text-3xl font-bold">List {{ formData.images }}</p>
 
         <!--Messages-->
         <div class="flex justify-center">
@@ -58,7 +58,7 @@
                 <template v-if="!product.isLoading">
                     <fwb-table-row v-for="(item, index) in data" :key="item._id">
                         <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
-                        <fwb-table-cell><img class="w-10" :src="item?.images[0]" alt="" srcset=""></fwb-table-cell>
+                        <fwb-table-cell><img class="md:w-10" :src="item?.images[0]" alt="" srcset=""></fwb-table-cell>
                         <fwb-table-cell>{{ item.name }}</fwb-table-cell>
                         <fwb-table-cell> <span><fwb-badge type="indigo">{{ item.category.name }}</fwb-badge></span>
                         </fwb-table-cell>
@@ -183,13 +183,16 @@ const toggleModal = (modelName, state, id = null, operation) => {
         if (operation == 'detail') {
             selectedProduct.value = { categoryName, ...productWithoutId }
         } else if (operation == 'edit' || operation == 'delete') {
-            // formData.value._id = _id
-            // formData.value.name = productWithoutId.name
-            // formData.value.description = productWithoutId.description
-            // formData.value.price = productWithoutId.price
-            // formData.value.category = productWithoutId.category
-            // //formData.value.images = productWithoutId?.images[0] || null
-            // formData.value.quantity = productWithoutId.quantity
+
+            const selectedProductItem = product.getById(id)
+
+            formData.value._id = selectedProductItem._id
+            formData.value.name = selectedProductItem.name
+            formData.value.description = selectedProductItem.description
+            formData.value.price = selectedProductItem.price
+            formData.value.category = selectedProductItem.category._id
+            formData.value.images = selectedProductItem.images[0]
+            formData.value.quantity = selectedProductItem.quantityInStock
         } else {
             formData.value._id = ''
             formData.value.name = ''
@@ -218,7 +221,7 @@ const onSubmit = async (type) => {
         //hide edit modal
         if (response) {
             modalOptions.value.isShowEditModal = false
-            message.value = 'Successfully category updated!'
+            message.value = 'Successfully product updated!'
         }
     }
 

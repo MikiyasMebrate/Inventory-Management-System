@@ -54,12 +54,24 @@ export const useProductStore = defineStore('product', {
             this.isLoading = true;
             this.error = null;
 
+            console.log({
+                "category": product.category,
+                "name": product.name,
+                "price": product.price,
+                "quantityInStock": product.quantity,
+                "description": product.description,
+                "images": [product.images]
+            })
+
+
+
             try {
                 const response = await api.put(`product/${product._id}`, {
                     "category": product.category,
-                    "name": product.description,
+                    "name": product.name,
                     "price": product.price,
                     "quantityInStock": product.quantity,
+                    "description": product.description,
                     "images": [product.images]
                 });
                 const index = this.products.findIndex(item => item._id === product._id);
