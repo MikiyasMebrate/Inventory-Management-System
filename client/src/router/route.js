@@ -1,6 +1,5 @@
 import { useAuthStore } from '@/store/auth'
 import { createRouter, createWebHistory } from 'vue-router'
-
 const routes = [
     {
         path: '/login',
@@ -50,7 +49,8 @@ const routes = [
             {
                 path: 'users',
                 name: 'users',
-                component: () => import('@/pages/Users.vue')
+                component: () => import('@/pages/Users.vue'),
+                meta: { requiresAuth: true, roles: ['admin'] },
             },
             {
                 path: '/profile',
@@ -72,6 +72,24 @@ const router = createRouter({
     routes,
     linkActiveClass: 'bg-indigo-700 text-white'
 })
+
+
+router.beforeEach((to, from, next) => {
+    const authStore = useAuthStore();
+
+    if (to.meta.requiresAuth) {
+        if (authStore.isAuthenticated) {
+            if (to.meta.roles && !to.meta.roles.includes(authStore.userRole)) {
+                return next({ name: 'Login' }); // Redirect if role doesn't match
+            }
+            return next(); // Proceed if authenticated and role matches
+        } else {
+            return next({ name: 'login', query: { redirect: to.fullPath } });
+        }
+    }
+    next();
+});
+
 
 
 

@@ -1,3 +1,9 @@
+<script setup>
+import { useAuthStore } from '@/store/auth';
+
+const userStore = useAuthStore()
+</script>
+
 <template>
     <aside id="logo-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-blue-50 border-r border-gray-200 sm:translate-x-0"
@@ -5,7 +11,7 @@
         <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-50 ">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <router-link :to="{name : 'dashboard'}"
+                    <router-link :to="{ name: 'dashboard' }"
                         class="flex items-center p-2   text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
@@ -17,8 +23,8 @@
                 </li>
 
                 <li>
-       
-                    <router-link :to="{name : 'categories'}"
+
+                    <router-link :to="{ name: 'categories' }"
                         class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-backpack4-fill" viewBox="0 0 16 16">
@@ -32,7 +38,7 @@
                 </li>
 
                 <li>
-                    <router-link :to="{name : 'products'}"
+                    <router-link :to="{ name: 'products' }"
                         class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-bag-dash-fill" viewBox="0 0 16 16">
@@ -45,7 +51,7 @@
 
 
                 <li>
-                    <router-link :to="{name : 'notifications'}"
+                    <router-link :to="{ name: 'notifications' }"
                         class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -59,7 +65,7 @@
                 </li>
 
                 <li>
-                    <router-link :to="{name : 'users'}"
+                    <router-link v-if="userStore.userRole == 'admin'" :to="{ name: 'users' }"
                         class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -71,7 +77,7 @@
                 </li>
 
                 <li>
-                    <router-link :to="{name : 'profile'}"
+                    <router-link :to="{ name: 'profile' }"
                         class="flex items-center p-2  text-indigo-900 rounded-lg hover:bg-indigo-700 hover:text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-person-fill" viewBox="0 0 16 16">
