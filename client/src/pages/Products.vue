@@ -13,7 +13,7 @@
 
 
         <!--Product Button-->
-        <div class="flex justify-end my-3">
+        <div v-if="user.userRole == 'admin' || user.userRole == 'storekeeper'" class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Product"></Button>
         </div>
 
@@ -80,6 +80,10 @@
                                 <TrashIcon v-if="user.userRole == 'admin'"
                                     @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal, item._id, 'delete')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                                <!--Delete-->
+                                <TagIcon v-if="user.userRole == 'salesperson'"
+                                    @click="toggleModal('isShowSaleModal', !modalOptions.isShowSaleModal, item._id, 'sale')"
+                                    class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             </div>
                         </fwb-table-cell>
                     </fwb-table-row>
@@ -106,6 +110,11 @@
     <!--Delete Modal-->
     <DeleteEntityModal title="Delete product" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
         @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
+
+    <!--Sale Modal-->
+    <SaleProductModal title="Sale Product" :isShowSaleModal="modalOptions.isShowSaleModal"
+        @close="toggleModal('isShowSaleModal', !modalOptions.isShowSaleModal)" entityType="product" v-model="formData"
+        @submit="onSubmit('put-sale')" />
 </template>
 
 <script setup>
@@ -116,10 +125,12 @@ import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
 import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
+import SaleProductModal from '@/components/modal/SaleProductModal.vue';
+
 import { ref } from 'vue';
 import { useProductStore } from '@/store/product';
 import { onMounted } from 'vue';
-import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
+import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon, TagIcon } from '@heroicons/vue/24/solid'
 import {
     FwbTable,
     FwbTableBody,
@@ -168,6 +179,7 @@ const modalOptions = ref({
     isShowEditModal: false,
     isShowDetailModal: false,
     isShowDeleteModal: false,
+    isShowSaleModal: false
 })
 
 /**
