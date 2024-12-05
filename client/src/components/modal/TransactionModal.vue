@@ -14,7 +14,7 @@
                     {{ formError }}
                 </fwb-alert>
 
-                <div v-if="title == 'Sale Product'" class="grid gap-4 mb-4 grid-cols-2">
+                <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-1">
                         <label>Name</label>
                         <p class="text-gray-500">{{ detail.name }}</p>
@@ -25,8 +25,12 @@
                         <p class="text-gray-500">{{ detail.quantityInStock || 0 }}</p>
                     </div>
 
-                    <div class="col-span-1">
+                    <div class="col-span-2">
                         <img class="md:w-56" :src="detail.images[0]" alt="">
+                    </div>
+                    <div class="col-span-1">
+                        <fwb-input v-model="model.priceAtTransaction" type="number" label="Price"
+                            placeholder="Product quantity" size="lg" step="0.1" />
                     </div>
 
                     <div class="col-span-1">
@@ -38,7 +42,7 @@
             <template #footer>
                 <div class="flex justify-end">
                     <fwb-button @click="closeModal" color="blue">
-                        Sale
+                        {{ title == '' ? 'Sale Product' : 'Restock' }}
                     </fwb-button>
                 </div>
             </template>

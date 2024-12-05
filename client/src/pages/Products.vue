@@ -2,7 +2,7 @@
     <Breadcrumb name="Product" />
 
     <section class="mt-5">
-        <p class="my-5 text-3xl font-bold">List</p>
+        <p class="my-5 text-3xl font-bold">List </p>
 
         <!--Messages-->
         <div class="flex justify-center mb-5">
@@ -188,7 +188,7 @@ const formData = ref({
 
 const transactionForm = ref({
     quantity: 1,
-    priceAtTransaction: 1,
+    priceAtTransaction: 0,
     requestType: '',  // sale, restock, return 
 })
 
@@ -284,12 +284,12 @@ const onSubmit = async (type) => {
             modalOptions.value.isShowTransactionModal = false
             message.value = 'Successfully product sold!'
         }
-    } else if (type == 'restock') {
+    } else if (type == 'Restock Product') {
         response = await product.saleProduct({
             "product": selectedProduct.value._id,
             "actionType": "restock",
             "quantity": transactionForm.value.quantity,
-            "priceAtTransaction": 10
+            "priceAtTransaction": transactionForm.value.priceAtTransaction,
         })
 
         //hide edit modal
@@ -309,6 +309,7 @@ const onSubmit = async (type) => {
         formData.value.images = ''
         formData.value.quantity = 0
         transactionForm.value.quantity = 1
+        transactionForm.value.priceAtTransaction = 0
     }
 
 };
