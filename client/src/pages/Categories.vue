@@ -3,11 +3,14 @@
 
     <section class="mt-5">
         <p class="my-5 text-3xl font-bold">List</p>
+
+        <!--Messages-->
         <div class="flex justify-center">
             <div class="w-full md:w-1/2 ">
                 <Alert @close="clearMessage" v-if="message" :title="message" type="success" />
             </div>
         </div>
+
         <!--Add category button-->
         <div class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Category"></Button>
@@ -94,7 +97,6 @@
             @submit="onSubmit('put')" />
         <DeleteEntityModal title="Delete Category" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
             @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
-
 
     </section>
 </template>
