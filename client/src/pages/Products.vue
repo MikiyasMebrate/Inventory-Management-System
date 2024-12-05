@@ -5,7 +5,7 @@
         <p class="my-5 text-3xl font-bold">List</p>
 
         <!--Messages-->
-        <div class="flex justify-center">
+        <div class="flex justify-center mb-5">
             <div class="w-full md:w-1/2 ">
                 <Alert @close="clearMessage" v-if="message" :title="message" type="success" />
             </div>
@@ -112,7 +112,8 @@
         @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 
     <!--Sale Modal-->
-    <SaleProductModal title="Sale Product" :detail="selectedProduct" :isShowModal="modalOptions.isShowSaleModal"
+    <SaleProductModal title="Sale Product" :isLoading="product.isLoading" :formError="product.error"
+        :detail="selectedProduct" :isShowModal="modalOptions.isShowSaleModal" @submit="onSubmit('sale')"
         @close="toggleModal('isShowSaleModal', !modalOptions.isShowSaleModal)" v-model="saleProductForm" />
 </template>
 
@@ -256,6 +257,18 @@ const onSubmit = async (type) => {
             message.value = 'Successfully category deleted!'
             getFilteredItem('')
         }
+    } else if (type == 'sale') {
+        response = await product.saleProduct({
+            "product": selectedProduct.value._id,
+            "actionType": "sale",
+            "quantity": saleProductForm.value.quantity
+        })
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowSaleModal = false
+            message.value = 'Successfully product sold!'
+        }
     }
 
     if (response) {
@@ -266,6 +279,7 @@ const onSubmit = async (type) => {
         formData.value.category = ''
         formData.value.images = ''
         formData.value.quantity = 0
+        saleProductForm.value.quantity = 1
     }
 
 };
