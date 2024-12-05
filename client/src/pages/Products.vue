@@ -73,7 +73,7 @@
                                     @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal, item._id, 'detail')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Edit-->
-                                <PencilSquareIcon v-if="user.userRole == 'admin'"
+                                <PencilSquareIcon v-if="user.userRole == 'admin' || user.userRole == 'storekeeper'"
                                     @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal, item._id, 'edit')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Delete-->
@@ -97,8 +97,12 @@
         :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit('post')"
         @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="product" v-model="formData" />
     <!--Detail Modal-->
-    <DetailEntityModal title="Category detail" :detail="selectedProduct" :isShowModal="modalOptions.isShowDetailModal"
+    <DetailEntityModal title="Product detail" :detail="selectedProduct" :isShowModal="modalOptions.isShowDetailModal"
         @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
+    <!--Edit Modal-->
+    <EditEntityModal title="Edit Product" :isShowEditModal="modalOptions.isShowEditModal"
+        @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="product" v-model="formData"
+        @submit="onSubmit('put')" />
 </template>
 
 <script setup>
@@ -107,6 +111,7 @@ import Alert from '@/components/ui/Alert.vue';
 import Button from '@/components/ui/Button.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
+import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import { ref } from 'vue';
 import { useProductStore } from '@/store/product';
 import { onMounted } from 'vue';
@@ -176,8 +181,23 @@ const toggleModal = (modelName, state, id = null, operation) => {
     if (id) {
         const { _id, isActive, __v, images, category: { name: categoryName }, ...productWithoutId } = product.getById(id)
         if (operation == 'detail') {
-            console.log(categoryName)
             selectedProduct.value = { categoryName, ...productWithoutId }
+        } else if (operation == 'edit' || operation == 'delete') {
+            // formData.value._id = _id
+            // formData.value.name = productWithoutId.name
+            // formData.value.description = productWithoutId.description
+            // formData.value.price = productWithoutId.price
+            // formData.value.category = productWithoutId.category
+            // //formData.value.images = productWithoutId?.images[0] || null
+            // formData.value.quantity = productWithoutId.quantity
+        } else {
+            formData.value._id = ''
+            formData.value.name = ''
+            formData.value.description = ''
+            formData.value.price = ''
+            formData.value.category = ''
+            formData.value.images = ''
+            formData.value.quantity = 0
         }
     }
 }
@@ -191,6 +211,14 @@ const onSubmit = async (type) => {
         if (response) {
             modalOptions.value.isShowAddModal = false
             message.value = 'Successfully product added!'
+        }
+    } else if (type == 'put') {
+        response = await product.updateProduct(formData.value)
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowEditModal = false
+            message.value = 'Successfully category updated!'
         }
     }
 

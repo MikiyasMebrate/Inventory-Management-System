@@ -50,6 +50,34 @@ export const useProductStore = defineStore('product', {
             }
             return false
         },
+        async updateProduct(product) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.put(`product/${product._id}`, {
+                    "category": product.category,
+                    "name": product.description,
+                    "price": product.price,
+                    "quantityInStock": product.quantity,
+                    "images": [product.images]
+                });
+                const index = this.products.findIndex(item => item._id === product._id);
+                if (index !== -1) {
+                    this.products[index] = response.data;
+                }
+            } catch (error) {
+                console.log('Error updating product:', error);
+                this.error = error.response?.data?.message || 'Failed to update product';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
         filterProduct(searchTerm) {
             if (!searchTerm) {
                 return this.products; // Return all categories if search is empty
