@@ -1,42 +1,48 @@
 <template>
-
     <!--Key Metrics (KPIs) Section-->
     <section class="grid grid-cols-1  gap-4 mb-4  md:grid-cols-2 lg:grid-cols-4 ">
-        <DashboardCard v-for="item in dashboards" :name="item.name" :icon="item.icon" :number="item.number"  />
+        <DashboardCard v-for="item in dashboards" :name="item.name" :icon="item.icon" :number="item.number" />
     </section>
 
-     <!--Trends and Visual Insights-->
-     <section class="mt-10">
+    <!--Trends and Visual Insights-->
+    <section class="mt-10">
         <p class="text-gray-600 my-3">Trends and Visual Insights</p>
-     </section>
+    </section>
 </template>
 
 <script setup>
 import DashboardCard from '@/components/ui/DashboardCard.vue';
-import { ClipboardIcon,ArchiveBoxIcon, BuildingStorefrontIcon  ,UserIcon } from '@heroicons/vue/24/solid'
+import { useDashboardStore } from '@/store/dashboard';
+import { ClipboardIcon, ArchiveBoxIcon, BuildingStorefrontIcon, UserIcon } from '@heroicons/vue/24/solid';
+import { computed, onMounted } from 'vue';
 
-const dashboards = [
+const dashboardStore = useDashboardStore();
+
+// Fetch data when the component is mounted
+onMounted(() => {
+    dashboardStore.getData();
+});
+
+const dashboards = computed(() => [
     {
         name: 'Total Category',
         icon: ClipboardIcon,
-        number : 10
+        number: dashboardStore.getDashboard?.categoryCount || 0,
     },
     {
         name: 'Total Product',
         icon: ArchiveBoxIcon,
-        number : 342
+        number: dashboardStore.getDashboard?.productCount || 0,
     },
     {
-        name: 'Product in Stock',
+        name: 'Total Quantity',
         icon: BuildingStorefrontIcon,
-        number : 198
+        number: dashboardStore.getDashboard?.totalQuantity[0].totalQuantity || 0,
     },
     {
         name: 'Total Users',
         icon: UserIcon,
-        number : 3
+        number: dashboardStore.getDashboard?.userCount || 0,
     },
-]
-
-
+]);
 </script>
