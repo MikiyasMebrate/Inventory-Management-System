@@ -17,6 +17,16 @@
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Product"></Button>
         </div>
 
+        <!--Page length option -->
+        <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+            <fwb-select class="w-20" v-model="pageLength" :options="lengths"></fwb-select>
+            <fwb-input class="w-full md:w-80" v-model="searchQuery.query" placeholder="enter your search query">
+                <template #prefix>
+                    <MagnifyingGlassIcon class="h-5 w-5" />
+                </template>
+            </fwb-input>
+        </div>
+
 
         <!--Table-->
         <fwb-table hoverable>
@@ -136,7 +146,7 @@ import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
 import TransactionModal from '@/components/modal/TransactionModal.vue';
 
-import { ref } from 'vue';
+import { ref, reactive, watch } from 'vue';
 import { useProductStore } from '@/store/product';
 import { onMounted } from 'vue';
 import {
@@ -150,6 +160,8 @@ import {
     ArrowUturnLeftIcon
 } from '@heroicons/vue/24/solid'
 import {
+    FwbSelect,
+    FwbInput,
     FwbTable,
     FwbTableBody,
     FwbTableCell,
@@ -180,6 +192,10 @@ onMounted(async () => {
 const message = ref('')
 const data = ref([]) //products data
 const selectedProduct = ref({})
+const pageLength = ref(10)
+const searchQuery = reactive({
+    query: ''
+})
 const formData = ref({
     _id: '',
     name: '',
@@ -207,6 +223,13 @@ const modalOptions = ref({
     isShowRestockModal: false,
 })
 
+const lengths = [
+    { value: 10, name: 10 },
+    { value: 25, name: 25 },
+    { value: 50, name: 50 },
+    { value: 100, name: 100 }
+]
+
 /**
  * Clear the message.
  * This function is called when the user clicks on the close button on the alert message.
@@ -214,6 +237,11 @@ const modalOptions = ref({
 const clearMessage = () => {
     message.value = ''
 }
+
+watch(() => searchQuery.query, (query) => {
+    getFilteredItem(query || null)
+}
+)
 
 //control modal 
 const toggleModal = (modelName, state, id = null, operation) => {
