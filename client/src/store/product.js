@@ -118,8 +118,33 @@ export const useProductStore = defineStore('product', {
                 }
 
             } catch (error) {
-                console.log('Error deleting product:', error);
+                console.log('Error sale product:', error);
                 this.error = error.response?.data?.message || 'Failed to sale product';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
+        async restockProduct(product) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.post(`inventory-transactions`, product);
+
+                const index = this.products.findIndex(item => item._id === product.product);
+
+                if (index !== -1) {
+                    this.products[index] = response.data.updatedProduct;
+                }
+
+            } catch (error) {
+                console.log('Error restock product:', error);
+                this.error = error.response?.data?.message || 'Failed to restock product';
             } finally {
                 this.isLoading = false;
             }

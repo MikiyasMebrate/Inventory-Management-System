@@ -80,9 +80,13 @@
                                 <TrashIcon v-if="user.userRole == 'admin'"
                                     @click="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal, item._id, 'delete')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
-                                <!--Delete-->
+                                <!--Sale-->
                                 <TagIcon v-if="user.userRole == 'salesperson'"
-                                    @click="toggleModal('isShowSaleModal', !modalOptions.isShowSaleModal, item._id, 'sale')"
+                                    @click="toggleModal('isShowTransactionModal', !modalOptions.isShowTransactionModal, item._id, 'sale')"
+                                    class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                                <!--Restock-->
+                                <ArchiveBoxArrowDownIcon v-if="user.userRole == 'storekeeper'"
+                                    @click="toggleModal('isShowTransactionModal', !modalOptions.isShowTransactionModal, item._id, 'restock')"
                                     class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                             </div>
                         </fwb-table-cell>
@@ -112,9 +116,9 @@
         @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
 
     <!--Sale Modal-->
-    <SaleProductModal title="Sale Product" :isLoading="product.isLoading" :formError="product.error"
-        :detail="selectedProduct" :isShowModal="modalOptions.isShowSaleModal" @submit="onSubmit('sale')"
-        @close="toggleModal('isShowSaleModal', !modalOptions.isShowSaleModal)" v-model="saleProductForm" />
+    <TransactionModal title="Sale Product" :isLoading="product.isLoading" :formError="product.error"
+        :detail="selectedProduct" :isShowModal="modalOptions.isShowTransactionModal" @submit="onSubmit('sale')"
+        @close="toggleModal('isShowTransactionModal', !modalOptions.isShowTransactionModal)" v-model="transactionForm" />
 </template>
 
 <script setup>
@@ -125,12 +129,20 @@ import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
 import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
-import SaleProductModal from '@/components/modal/SaleProductModal.vue';
+import TransactionModal from '@/components/modal/TransactionModal.vue';
 
 import { ref } from 'vue';
 import { useProductStore } from '@/store/product';
 import { onMounted } from 'vue';
-import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon, TagIcon } from '@heroicons/vue/24/solid'
+import {
+    MagnifyingGlassIcon,
+    ArrowsUpDownIcon,
+    PencilSquareIcon,
+    TrashIcon,
+    EyeIcon,
+    TagIcon,
+    ArchiveBoxArrowDownIcon
+} from '@heroicons/vue/24/solid'
 import {
     FwbTable,
     FwbTableBody,
@@ -173,8 +185,9 @@ const formData = ref({
 
 })
 
-const saleProductForm = ref({
+const transactionForm = ref({
     quantity: 1,
+    priceAtTransaction: 1
 })
 
 //control modal hide and show
@@ -183,7 +196,8 @@ const modalOptions = ref({
     isShowEditModal: false,
     isShowDetailModal: false,
     isShowDeleteModal: false,
-    isShowSaleModal: false
+    isShowTransactionModal: false,
+    isShowRestockModal: false,
 })
 
 /**
@@ -198,13 +212,11 @@ const clearMessage = () => {
 const toggleModal = (modelName, state, id = null, operation) => {
     modalOptions.value[modelName] = state
 
-
-
     if (id) {
         const { _id, isActive, __v, images, category: { name: categoryName }, ...productWithoutId } = product.getById(id)
         if (operation == 'detail') {
             selectedProduct.value = { categoryName, ...productWithoutId }
-        } else if (operation == 'sale') {
+        } else if (operation == 'sale' || operation == 'restock') {
             selectedProduct.value = product.getById(id)
         }
         else if (operation == 'edit' || operation == 'delete') {
@@ -261,15 +273,29 @@ const onSubmit = async (type) => {
         response = await product.saleProduct({
             "product": selectedProduct.value._id,
             "actionType": "sale",
-            "quantity": saleProductForm.value.quantity
+            "quantity": transactionForm.value.quantity
         })
 
         //hide edit modal
         if (response) {
-            modalOptions.value.isShowSaleModal = false
+            modalOptions.value.isShowTransactionModal = false
+            message.value = 'Successfully product sold!'
+        }
+    } else if (type == 'restock') {
+        response = await product.saleProduct({
+            "product": selectedProduct.value._id,
+            "actionType": "restock",
+            "quantity": transactionForm.value.quantity,
+            "priceAtTransaction": 10
+        })
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowTransactionModal = false
             message.value = 'Successfully product sold!'
         }
     }
+
 
     if (response) {
         formData.value._id = ''
@@ -279,7 +305,7 @@ const onSubmit = async (type) => {
         formData.value.category = ''
         formData.value.images = ''
         formData.value.quantity = 0
-        saleProductForm.value.quantity = 1
+        transactionForm.value.quantity = 1
     }
 
 };
