@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 
 //@desc Register user
-//@route POST /api/register
+//@route POST /api/user/register
 //@access public
 const registerUser = [
   check("firstName")
@@ -74,7 +74,7 @@ const registerUser = [
 ];
 
 //@desc login 
-//@route POST /api/login
+//@route POST /api/user/login
 //@access public
 const loginUser = [
   check("email").isEmail().withMessage("Please provide a valid email address"),
@@ -129,6 +129,10 @@ const loginUser = [
   })
 ]
 
+
+//@desc login 
+//@route POST /api/user/login
+//@access public
 
 
 //@desc login 
