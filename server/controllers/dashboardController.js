@@ -52,26 +52,21 @@ const getDashboard = asyncHandler(async (req, res) => {
     ]);
 
     const topProducts = await InventoryTransaction.aggregate([
-        // Stage 1: Filter for actionType = 'sale'
         {
             $match: { actionType: 'sale' },
         },
-        // Stage 2: Group by product and calculate total quantity sold
         {
             $group: {
                 _id: '$product', // Group by product ID
                 totalSold: { $sum: '$quantity' }, // Sum the quantities
             },
         },
-        // Stage 3: Sort by totalSold in descending order
         {
             $sort: { totalSold: -1 },
         },
-        // Stage 4: Limit to top 10 products
         {
             $limit: 10,
         },
-        // Stage 5: Lookup product details (name and price)
         {
             $lookup: {
                 from: 'products', // Collection name for Product model
@@ -80,11 +75,10 @@ const getDashboard = asyncHandler(async (req, res) => {
                 as: 'productDetails', // Result array field
             },
         },
-        // Stage 6: Unwind the productDetails array
+
         {
             $unwind: '$productDetails',
         },
-        // Stage 7: Lookup category details
         {
             $lookup: {
                 from: 'categories', // Collection name for Category model
@@ -93,11 +87,9 @@ const getDashboard = asyncHandler(async (req, res) => {
                 as: 'categoryDetail', // Result array field
             },
         },
-        // Stage 8: Unwind the categoryDetail array
         {
             $unwind: '$categoryDetail',
         },
-        // Stage 9: Project desired fields
         {
             $project: {
                 _id: 0, // Exclude the default _id field
