@@ -37,6 +37,31 @@ export const useUsersStore = defineStore('users', {
                     user.email.toLowerCase().includes(search) // Check email
                 );
             });
-        }
+        },
+        sort(col) {
+            if (this.sortColumn === col) {
+                // Reverse the sort direction
+                this.sortDirection *= -1;
+            } else {
+                // Set new column and default to ascending
+                this.sortColumn = col;
+                this.sortDirection = 1;
+            }
+
+            // Sort based on column and direction
+            if (col === 'firstName') {
+                this.users.sort((a, b) => {
+                    return this.sortDirection * a.firstName.localeCompare(b.firstName);
+                });
+            } else if (col === 'lastName') {
+                this.users.sort((a, b) => {
+                    return this.sortDirection * a.lastName.localeCompare(b.lastName);
+                });
+            } else if (col === 'role') {
+                this.users.sort((a, b) => {
+                    return this.sortDirection * a.role.localeCompare(b.role);
+                });
+            }
+        },
     }
 })

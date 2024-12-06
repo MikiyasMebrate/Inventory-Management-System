@@ -26,13 +26,15 @@
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>First Name</p>
-                        <ArrowsUpDownIcon @click="handleOnSort('name')" class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        <ArrowsUpDownIcon @click="handleOnSort('firstName')"
+                            class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Last Name</p>
-                        <ArrowsUpDownIcon @click="handleOnSort('name')" class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        <ArrowsUpDownIcon @click="handleOnSort('lastName')"
+                            class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
@@ -41,7 +43,7 @@
                 <fwb-table-head-cell>
                     <div class="flex justify-between">
                         <p>Role</p>
-                        <ArrowsUpDownIcon @click="handleOnSort('name')" class="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        <ArrowsUpDownIcon @click="handleOnSort('role')" class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                     </div>
                 </fwb-table-head-cell>
                 <fwb-table-head-cell>
@@ -138,6 +140,10 @@ const getFilteredItem = (query) => {
         return
     }
     data.value = usersListStore.filterUsers(query)
+}
+
+const handleOnSort = async (col) => {
+    usersListStore.sort(col)
 }
 
 const clearMessage = () => {
