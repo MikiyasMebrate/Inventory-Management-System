@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        s
+
         <!--Product Button-->
         <div v-if="user.userRole == 'admin' || user.userRole == 'storekeeper'" class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Product"></Button>
@@ -68,7 +68,10 @@
                 <template v-if="!product.isLoading">
                     <fwb-table-row v-for="(item, index) in data" :key="item._id">
                         <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
-                        <fwb-table-cell><img class="md:w-10" :src="item?.images[0]" alt="" srcset=""></fwb-table-cell>
+                        <fwb-table-cell>
+                            <div class="bg-gray-100 shadow-sm w-16  p-1 flex justify-center"><img
+                                    class="w-full  h-full object-cover" :src="item?.images[0]" alt="" srcset=""></div>
+                        </fwb-table-cell>
                         <fwb-table-cell>{{ item.name }}</fwb-table-cell>
                         <fwb-table-cell> <span><fwb-badge type="indigo">{{ item.category.name }}</fwb-badge></span>
                         </fwb-table-cell>
