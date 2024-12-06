@@ -15,6 +15,39 @@
                     :series="dashboards?.topCategories?.series">
                 </apexchart>
             </div>
+
+            <!--Table Latest product sold-->
+            <div class=" gap-4  rounded-lg shadow mt-5">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <p class="p-6 text-gray-400">Top Products</p>
+                    <fwb-table hoverable>
+                        <fwb-table-head class="bg-indigo-900 text-white">
+                            <fwb-table-head-cell>#</fwb-table-head-cell>
+                            <fwb-table-head-cell>
+                                <span>Product Name</span>
+                            </fwb-table-head-cell>
+                            <fwb-table-head-cell>
+                                <span>Category</span>
+                            </fwb-table-head-cell>
+                            <fwb-table-head-cell>
+                                <span>Price</span>
+                            </fwb-table-head-cell>
+                            <fwb-table-head-cell>
+                                <span>Quantity</span>
+                            </fwb-table-head-cell>
+                        </fwb-table-head>
+                        <fwb-table-body>
+                            <fwb-table-row v-for="(item, index) in dashboardStore.getProduct" :key="item.productName">
+                                <fwb-table-cell>{{ index + 1 }}</fwb-table-cell>
+                                <fwb-table-cell>{{ item.productName }}</fwb-table-cell>
+                                <fwb-table-cell>{{ item.category }}</fwb-table-cell>
+                                <fwb-table-cell>{{ item.price }}</fwb-table-cell>
+                                <fwb-table-cell>{{ item.totalSold }}</fwb-table-cell>
+                            </fwb-table-row>
+                        </fwb-table-body>
+                    </fwb-table>
+                </div>
+            </div>
         </div>
     </section>
 </template>
@@ -24,6 +57,17 @@ import DashboardCard from '@/components/ui/DashboardCard.vue';
 import { useDashboardStore } from '@/store/dashboard';
 import { ClipboardIcon, ArchiveBoxIcon, BuildingStorefrontIcon, UserIcon } from '@heroicons/vue/24/solid';
 import { computed, onMounted } from 'vue';
+import {
+    FwbSelect,
+    FwbInput,
+    FwbTable,
+    FwbTableBody,
+    FwbTableCell,
+    FwbTableHead,
+    FwbTableHeadCell,
+    FwbTableRow,
+    FwbPagination
+} from 'flowbite-vue'
 
 const dashboardStore = useDashboardStore();
 

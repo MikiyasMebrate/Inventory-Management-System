@@ -18,6 +18,7 @@ app.use('/api/inventory-transactions', require('./routes/inventoryTransactionRou
 app.use('/api/search', require('./routes/searchRoutes'))
 app.use('/api/notifications/preference', require('./routes/notificationPreferenceRoutes'))
 app.use('/api/notifications', require('./routes/notificationRouter'))
+app.use('/api/dashboard', require('./routes/dashboardRoute'))
 app.use(errorHandler)
 
 
