@@ -9,6 +9,16 @@
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add User"></Button>
         </div>
 
+        <!--Page length option -->
+        <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+            <fwb-select class="w-20" v-model="pageLength" :options="lengths"></fwb-select>
+            <fwb-input class="w-full md:w-80" v-model="searchQuery.query" placeholder="enter your search query">
+                <template #prefix>
+                    <MagnifyingGlassIcon class="h-5 w-5" />
+                </template>
+            </fwb-input>
+        </div>
+
         <!--Table-->
         <fwb-table hoverable>
             <fwb-table-head>
@@ -77,6 +87,7 @@
 <script setup>
 import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import Button from '@/components/ui/Button.vue';
+import { ref, reactive, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/store/auth';
 import { useUsersStore } from '@/store/users';
 import { MagnifyingGlassIcon, ArrowsUpDownIcon, PencilSquareIcon, TrashIcon, EyeIcon } from '@heroicons/vue/24/solid'
@@ -91,8 +102,8 @@ import {
     FwbTableRow,
     FwbPagination
 } from 'flowbite-vue'
-import { ref } from 'vue';
-import { onMounted } from 'vue';
+
+
 
 const userStore = useAuthStore()
 const usersListStore = useUsersStore()
@@ -101,7 +112,24 @@ onMounted(async () => {
     getFilteredItem('')
 })
 
+
 const data = ref([]) //users data
+const searchQuery = reactive({
+    query: ''
+})
+const message = ref('')
+
+const lengths = [
+    { value: 10, name: 10 },
+    { value: 25, name: 25 },
+    { value: 50, name: 50 },
+    { value: 100, name: 100 }
+]
+
+watch(() => searchQuery.query, (query) => {
+    getFilteredItem(query || null)
+}
+)
 
 
 const getFilteredItem = (query) => {
@@ -110,6 +138,10 @@ const getFilteredItem = (query) => {
         return
     }
     data.value = usersListStore.filterUsers(query)
+}
+
+const clearMessage = () => {
+    message.value = ''
 }
 
 </script>
