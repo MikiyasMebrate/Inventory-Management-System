@@ -130,8 +130,12 @@ const loginUser = [
 ]
 
 
+
+//@desc login 
+//@route GET /api/user
+//@access public
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({})
+  const users = await User.find({}).select('-password');
   res.status(200).json(users)
 })
 

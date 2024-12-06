@@ -101,10 +101,29 @@ const getDashboard = asyncHandler(async (req, res) => {
         },
     ]);
 
+    const transactions = await InventoryTransaction.aggregate([
+        // Stage 1: Group by actionType and sum the quantities
+        {
+            $group: {
+                _id: '$actionType', // Group by actionType
+                totalQuantity: { $sum: '$quantity' }, // Calculate total quantity for each actionType
+            },
+        },
+        // Stage 2: Project the result for readability
+        {
+            $project: {
+                _id: 0, // Exclude the _id field
+                actionType: '$_id', // Rename _id to actionType
+                totalQuantity: 1, // Include totalQuantity in the output
+            },
+        },
+    ]);
+
     res.status(200).json({
         "dashboard": { categoryCount, userCount, productCount, totalQuantity },
         "topCategories": topCategories,
-        "topProducts": topProducts
+        "topProducts": topProducts,
+        "summaryTransactions": transactions
     })
 })
 
