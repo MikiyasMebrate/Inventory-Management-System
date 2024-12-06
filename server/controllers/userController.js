@@ -147,17 +147,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
  */
 const updateUser = [
   check("email").isEmail().withMessage("Please provide a valid email address"),
-  check('password')
-    .isLength({ min: 8 }) // Enforce a minimum length of 8 characters
-    .withMessage('Password must be at least 8 characters long')
-    .matches(/\d/) // Ensure it contains at least one digit
-    .withMessage('Password must contain at least one number')
-    .matches(/[A-Z]/) // Ensure it contains at least one uppercase letter
-    .withMessage('Password must contain at least one uppercase letter')
-    .matches(/[a-z]/) // Ensure it contains at least one lowercase letter
-    .withMessage('Password must contain at least one lowercase letter')
-    .matches(/[\W_]/) // Ensure it contains at least one special character
-    .withMessage('Password must contain at least one special character'),
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
 
