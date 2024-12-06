@@ -32,7 +32,8 @@ export const useProductStore = defineStore('product', {
             try {
                 const response = await api.post('product', {
                     "category": product.category,
-                    "name": product.description,
+                    "name": product.name,
+                    "description": product.description,
                     "price": product.price,
                     "quantityInStock": product.quantity,
                     "images": [product.images]

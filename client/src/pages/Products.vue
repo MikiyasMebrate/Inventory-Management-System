@@ -11,7 +11,7 @@
             </div>
         </div>
 
-
+        s
         <!--Product Button-->
         <div v-if="user.userRole == 'admin' || user.userRole == 'storekeeper'" class="flex justify-end my-3">
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add Product"></Button>
