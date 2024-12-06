@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 
 //@desc Register user
 //@route POST /api/user/register
-//@access public
+//@access private
 const registerUser = [
   check("firstName")
     .notEmpty()
@@ -130,17 +130,70 @@ const loginUser = [
 ]
 
 
-//@desc login 
-//@route POST /api/user/login
-//@access public
 
 
 //@desc login 
 //@route GET /api/user
-//@access public
+//@access private
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({}).select('-password');
   res.status(200).json(users)
+})
+
+/**
+ * @desc UPDATE  user
+ * @route PUT /api/user/id
+ * @access private
+ */
+const updateUser = [
+  check("email").isEmail().withMessage("Please provide a valid email address"),
+  check('password')
+    .isLength({ min: 8 }) // Enforce a minimum length of 8 characters
+    .withMessage('Password must be at least 8 characters long')
+    .matches(/\d/) // Ensure it contains at least one digit
+    .withMessage('Password must contain at least one number')
+    .matches(/[A-Z]/) // Ensure it contains at least one uppercase letter
+    .withMessage('Password must contain at least one uppercase letter')
+    .matches(/[a-z]/) // Ensure it contains at least one lowercase letter
+    .withMessage('Password must contain at least one lowercase letter')
+    .matches(/[\W_]/) // Ensure it contains at least one special character
+    .withMessage('Password must contain at least one special character'),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+
+    // If there are validation errors
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const user = await User.findById(req.params.id)
+
+    if (!user) {
+      res.status(404)
+      throw new Error("User not Found!")
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.status(200).json(updatedUser)
+  })
+]
+
+
+/**
+ * @desc delete  user
+ * @route DELETE /api/user/id
+ * @access private
+ */
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if (!user) {
+    res.status(404)
+    throw new Error("User not found!")
+  }
+
+  await user.deleteOne()
+  res.status(200).json(user)
 })
 
 
@@ -148,5 +201,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
-  getAllUsers
+  getAllUsers,
+  deleteUser,
+  updateUser
 };
