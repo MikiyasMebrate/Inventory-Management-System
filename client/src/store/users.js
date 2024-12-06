@@ -19,7 +19,7 @@ export const useUsersStore = defineStore('users', {
                 this.users = response.data;
             } catch (error) {
                 console.log('Error fetching users:', error);
-                this.error = error.response?.data?.message || 'Failed to fetch users';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
             } finally {
                 this.isLoading = false;
             }
@@ -55,7 +55,29 @@ export const useUsersStore = defineStore('users', {
                 }
             } catch (error) {
                 console.log('Error deleting user:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg);
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
+        async updateUser(user) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.put(`user/${user._id}`, user);
+                const index = this.users.findIndex(item => item._id === user._id);
+                if (index !== -1) {
+                    this.users[index] = response.data;
+                }
+            } catch (error) {
+                console.log('Error updating user:', error);
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
             } finally {
                 this.isLoading = false;
             }

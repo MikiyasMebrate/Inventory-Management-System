@@ -28,7 +28,7 @@ export const useCategoryStore = defineStore('category', {
                 this.categories = response.data;
             } catch (error) {
                 console.log('Error fetching categories:', error);
-                this.error = error.response?.data?.message || 'Failed to fetch categories';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
             } finally {
                 this.isLoading = false;
             }
@@ -50,7 +50,7 @@ export const useCategoryStore = defineStore('category', {
                 this.categories.push(response.data);
             } catch (error) {
                 console.log('Error adding category:', error);
-                this.error = error.response?.data?.message || 'Failed to add category';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to add category';
             } finally {
                 this.isLoading = false;
             }
@@ -72,7 +72,7 @@ export const useCategoryStore = defineStore('category', {
                 }
             } catch (error) {
                 console.log('Error updating category:', error);
-                this.error = error.response?.data?.message || 'Failed to update category';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to update category';
             } finally {
                 this.isLoading = false;
             }
@@ -94,7 +94,7 @@ export const useCategoryStore = defineStore('category', {
                 }
             } catch (error) {
                 console.log('Error deleting category:', error);
-                this.error = error.response?.data?.message || 'Failed to delete category';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to delete category';
             } finally {
                 this.isLoading = false;
             }

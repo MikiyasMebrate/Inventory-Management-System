@@ -93,6 +93,11 @@
             @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="users" v-model="formData" />
         <DeleteEntityModal title="Delete User" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
             @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
+        <!--Edit Modal-->
+        <EditEntityModal title="Edit User" :isLoading="usersListStore.isLoading" :formError="usersListStore.error"
+            :isShowEditModal="modalOptions.isShowEditModal"
+            @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="users" v-model="formData"
+            @submit="onSubmit('put')" />
 
 
     </section>
@@ -103,6 +108,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import Button from '@/components/ui/Button.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
+import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import Alert from '@/components/ui/Alert.vue';
 import { ref, reactive, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/store/auth';
@@ -131,6 +137,7 @@ onMounted(async () => {
 
 
 const data = ref([]) //users data
+const pageLength = ref(10)
 const searchQuery = reactive({
     query: ''
 })
@@ -193,6 +200,21 @@ const onSubmit = async (type) => {
             message.value = 'Successfully user removed!'
             getFilteredItem('')
         }
+    } else if (type == 'put') {
+        response = await usersListStore.updateUser({
+            "_id": formData.value._id,
+            "firstName": formData.value.firstName,
+            "lastName": formData.value.lastName,
+            "email": formData.value.email,
+            "role": formData.value.role
+        })
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowEditModal = false
+            message.value = 'Successfully user updated!'
+        }
+
     }
 };
 
@@ -201,11 +223,21 @@ const toggleModal = (modelName, state, id = null, operation) => {
 
     if (id) {
         const { _id, ...userWithoutId } = usersListStore.getById(id)
-        if (operation == 'delete') {
+        if (operation == 'delete' || operation == 'edit') {
             formData.value._id = _id
             formData.value.firstName = userWithoutId.firstName
             formData.value.lastName = userWithoutId.lastName
+            formData.value.email = userWithoutId.email
+            formData.value.role = userWithoutId.role
+            formData.value.password = ''
         }
+    } else {
+        formData.value._id = ''
+        formData.value.firstName = ''
+        formData.value.lastName = ''
+        formData.value.email = ''
+        formData.value.role = ''
+        formData.value.password = ''
     }
 }
 

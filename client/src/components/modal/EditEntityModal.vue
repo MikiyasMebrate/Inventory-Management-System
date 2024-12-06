@@ -10,14 +10,20 @@
       </template>
 
       <template #body>
+        <fwb-alert class="text-center" v-if="formError" type="danger">
+          {{ formError }}
+        </fwb-alert>
+
+
         <CategoryForm v-if="entityType === 'category'" v-model="model" />
         <AddProductForm v-if="entityType === 'product'" v-model="model" />
+        <UserEditForm v-if="entityType === 'users'" v-model="model" />
 
       </template>
       <template #footer>
         <div class="flex justify-end">
-          <fwb-button @click="closeModal" color="blue">
-            Submit
+          <fwb-button @click="closeModal" color="blue" :disabled="isLoading" :loading="isLoading">
+            {{ isLoading ? 'Submitting' : 'Submit' }}
           </fwb-button>
         </div>
       </template>
@@ -27,9 +33,10 @@
 
 
 <script setup>
-import { FwbButton, FwbModal } from 'flowbite-vue'
+import { FwbButton, FwbModal, FwbAlert } from 'flowbite-vue'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 import AddProductForm from '../forms/AddProductForm.vue';
+import UserEditForm from '../forms/UserEditForm.vue';
 
 
 // const { isShowEditModal, entityType, title } = defineProps(['isShowEditModal', 'entityType', 'title'])
@@ -40,6 +47,8 @@ const props = defineProps({
   title: String,
   isShowEditModal: Boolean,
   entityType: String,
+  formError: Object,
+  isLoading: Boolean,
 });
 
 const model = defineModel({ required: true }) //form data

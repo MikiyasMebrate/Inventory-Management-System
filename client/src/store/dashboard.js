@@ -24,7 +24,7 @@ export const useDashboardStore = defineStore('dashboard', {
                 this.data = response.data;
             } catch (error) {
                 console.log('Error getting data:', error);
-                this.error = error.response?.data?.message || 'Failed to get data';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to get data';
             } finally {
                 this.isLoading = false;
             }

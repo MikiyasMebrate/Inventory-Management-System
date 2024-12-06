@@ -22,11 +22,6 @@
             <fwb-select autocomplete="off" v-model="model.role" :options="roles" label="Select Role" size="lg" />
         </div>
 
-        <div class="col-span-2">
-            <fwb-input v-model="model.password" autocomplete="new-password" type="password" label="Password"
-                placeholder="user password" size="lg" />
-        </div>
-
 
     </div>
 </template>

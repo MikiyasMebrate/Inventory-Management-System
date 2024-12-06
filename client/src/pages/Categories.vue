@@ -92,7 +92,8 @@
         <DetailEntityModal title="Category detail" :detail="selectedCategory" :isShowModal="modalOptions.isShowDetailModal"
             @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
         <!--Edit Modal-->
-        <EditEntityModal title="Edit Category" :isShowEditModal="modalOptions.isShowEditModal"
+        <EditEntityModal title="Edit Category" :isLoading="category.isLoading" :formError="category.error"
+            :isShowEditModal="modalOptions.isShowEditModal"
             @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="category" v-model="formData"
             @submit="onSubmit('put')" />
         <DeleteEntityModal title="Delete Category" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
