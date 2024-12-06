@@ -163,7 +163,16 @@ const handleOnSort = async (col) => {
 }
 
 const onSubmit = async (type) => {
-    console.log('submitted')
+    let response = null
+    if (type == 'post') {
+        response = await usersListStore.addUser(formData.value)
+
+        //hide add modal
+        if (response) {
+            modalOptions.value.isShowAddModal = false
+            message.value = 'Successfully user added!'
+        }
+    }
 };
 
 const toggleModal = (modelName, state, id = null, operation) => {

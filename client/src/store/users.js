@@ -24,6 +24,25 @@ export const useUsersStore = defineStore('users', {
                 this.isLoading = false;
             }
         },
+        async addUser(user) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.post('user/register', user);
+                this.users.push(response.data);
+            } catch (error) {
+                console.log('Error adding user:', error);
+                this.error = error.response?.data?.message || 'Failed to add user';
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
         filterUsers(searchTerm) {
             if (!searchTerm) {
                 return this.users; // Return all users if search is empty
