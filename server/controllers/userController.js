@@ -117,7 +117,7 @@ const loginUser = [
       },
         //access token
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '15m' }
+        { expiresIn: '60m' }
       )
 
       res.status(200).json({ accessToken })

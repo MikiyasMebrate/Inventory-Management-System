@@ -7,7 +7,10 @@ const Notification = require("../models/notification")
  * @access public
  */
 const getNotification = asyncHandler(async (req, res) => {
-    const notifications = await Notification.find({ user: req.user.id })
+    const notifications = await Notification.find({ user: req.user.id }).populate({
+        path: 'user',
+        select: 'firstName lastName'
+    })
 
     if (!notifications || notifications.length === 0) {
         return res.status(404).json({ message: "No notifications found!" });

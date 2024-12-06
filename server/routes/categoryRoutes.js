@@ -12,12 +12,12 @@ router.route('/')
 router.route('/:id')
     .put(
         validateTokenHandler,             // Token validation middleware
-        roleMiddleware(['storekeeper']),      // Role-based access control
+        roleMiddleware(['storekeeper', 'admin']),      // Role-based access control
         updateCategory                    // The controller function for the update
     )
     .delete(
         validateTokenHandler,
-        roleMiddleware(['storekeeper']),
+        roleMiddleware(['admin']),
         deleteCategory
     )
     .get(
