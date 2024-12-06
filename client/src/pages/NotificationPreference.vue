@@ -59,13 +59,18 @@ onMounted(async () => {
 
 const onSubmit = async () => {
     let response = null
-    if (preferenceStore.preferences) {
+    if (preferenceStore.hasPreferences) {
         response = await preferenceStore.updatePreference(formData.value)
 
         if (response) {
             message.value = 'Successfully preference updated!'
         }
+    } else {
+        response = await preferenceStore.createNotificationPreference(formData.value)
 
+        if (response) {
+            message.value = 'Successfully preference created!'
+        }
     }
 }
 
