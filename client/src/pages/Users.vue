@@ -64,10 +64,6 @@
                         }">{{ item.role }}</fwb-table-cell>
                         <fwb-table-cell>
                             <div class="flex ">
-                                <!--Detail-->
-                                <EyeIcon
-                                    @click="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal, item._id, 'detail')"
-                                    class="h-5 w-5 text-gray-400 hover:text-gray-600" />
                                 <!--Edit-->
                                 <PencilSquareIcon v-if="userStore.userRole == 'admin'"
                                     @click="toggleModal('isShowEditModal', !modalOptions.isShowDetailModal, item._id, 'edit')"
@@ -83,12 +79,19 @@
             </fwb-table-body>
         </fwb-table>
 
+        <!--Modals-->
+        <!--Add Modal-->
+        <AddEntityModal title="Add User" :isLoading="usersListStore.isLoading" :formError="usersListStore.error"
+            :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit('post')"
+            @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="users" v-model="formData" />
+
     </section>
 </template>
 
 <script setup>
 import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import Button from '@/components/ui/Button.vue';
+import AddEntityModal from '@/components/modal/AddEntityModal.vue';
 import { ref, reactive, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/store/auth';
 import { useUsersStore } from '@/store/users';
@@ -119,6 +122,19 @@ const data = ref([]) //users data
 const searchQuery = reactive({
     query: ''
 })
+const formData = ref({
+    firstName: '',
+    lastName: '',
+    email: '',
+    role: '',
+    password: '',
+    _id: ''
+})
+const modalOptions = ref({
+    isShowAddModal: false,
+    isShowEditModal: false,
+    isShowDeleteModal: false,
+})
 const message = ref('')
 
 const lengths = [
@@ -144,6 +160,14 @@ const getFilteredItem = (query) => {
 
 const handleOnSort = async (col) => {
     usersListStore.sort(col)
+}
+
+const onSubmit = async (type) => {
+    console.log('submitted')
+};
+
+const toggleModal = (modelName, state, id = null, operation) => {
+    modalOptions.value[modelName] = state
 }
 
 const clearMessage = () => {
