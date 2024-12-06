@@ -146,7 +146,7 @@ import DetailEntityModal from '@/components/modal/DetailEntityModal.vue';
 import EditEntityModal from '@/components/modal/EditEntityModal.vue';
 import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
 import TransactionModal from '@/components/modal/TransactionModal.vue';
-
+import { useNotificationStore } from '@/store/notification';
 import { ref, reactive, watch } from 'vue';
 import { useProductStore } from '@/store/product';
 import { onMounted } from 'vue';
@@ -177,6 +177,7 @@ import { useCategoryStore } from '@/store/category';
 
 //user store
 const user = useAuthStore()
+const notificationStore = useNotificationStore()
 
 //category
 const categoryList = useCategoryStore()
@@ -357,6 +358,7 @@ const onSubmit = async (type) => {
         formData.value.quantity = 0
         transactionForm.value.quantity = 1
         transactionForm.value.priceAtTransaction = 0
+        await notificationStore.fetchNotifications()
     }
 
 };

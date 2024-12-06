@@ -126,6 +126,7 @@ import {
     FwbPagination
 } from 'flowbite-vue'
 import { useAuthStore } from '@/store/auth';
+import { useNotificationStore } from '@/store/notification';
 
 
 //Category Store
@@ -135,7 +136,7 @@ onMounted(async () => {
     getFilteredItem('')
 })
 
-
+const notificationStore = useNotificationStore()
 
 const data = ref([]) //categories data
 const pageLength = ref(10)
@@ -233,7 +234,10 @@ const onSubmit = async (type) => {
     if (response) {
         formData.value.name = ''
         formData.value.description = ''
+        await notificationStore.fetchNotifications()
     }
+
+
 
 };
 
