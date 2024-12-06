@@ -5,7 +5,8 @@
     <div class="mt-10">
         <ul role="list" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
             <NotificationList v-for="item in notificationStore.notifications" :firstName="item.user.firstName"
-                :lastName="item.user.lastName" :date="dateFormatter(item.createdAt)" :message="item.message" />
+                :lastName="item.user.lastName" :date="dateFormatter(item.createdAt)" :message="item.message"
+                :isRead="item.isRead" />
         </ul>
     </div>
 </template>

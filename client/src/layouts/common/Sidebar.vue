@@ -1,5 +1,15 @@
 <script setup>
 import { useAuthStore } from '@/store/auth';
+import { useNotificationStore } from '@/store/notification'
+import { onMounted } from 'vue'
+
+const notification = useNotificationStore()
+
+onMounted(() => {
+    notification.fetchNotifications()
+})
+
+
 
 const userStore = useAuthStore()
 </script>
@@ -60,7 +70,8 @@ const userStore = useAuthStore()
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Notification</span>
                         <span
-                            class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium rounded-full bg-indigo-900 text-white">3</span>
+                            class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium rounded-full bg-indigo-900 text-white">{{
+                                notification.getNewNotificationCount }}</span>
                     </router-link>
                 </li>
 

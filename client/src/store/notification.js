@@ -7,6 +7,12 @@ export const useNotificationStore = defineStore('notification', {
         isLoading: false,
         error: null
     }),
+
+    getters: {
+        getNewNotificationCount(state) {
+            return state.notifications.filter(notification => !notification.isRead).length;
+        }
+    },
     actions: {
         async fetchNotifications() {
             this.isLoading = true;
