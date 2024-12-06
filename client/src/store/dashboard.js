@@ -10,7 +10,9 @@ export const useDashboardStore = defineStore('dashboard', {
     getters: {
         getDashboard: (state) => state.data.dashboard,
         getTopCategories: (state) => state.data.topCategories,
-        getProduct: (state) => state.data.topProducts
+        getProduct: (state) => state.data.topProducts,
+        getSummaryTransactions: (state) => state.data.summaryTransactions
+
     },
     actions: {
         async getData() {

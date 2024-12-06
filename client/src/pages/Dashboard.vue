@@ -50,6 +50,46 @@
             </div>
         </div>
     </section>
+
+    <section class="mt-10">
+        <p class="text-gray-600 my-3">Transactions</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+            <div>
+
+                <div class="w-full  bg-white border border-gray-200 rounded-lg shadow">
+                    <div class="flex flex-col items-center pb-10 pt-10">
+                        <DashboardTransactionCard title="Sold Products" :image="imageSoldProduct"
+                            :count="transactionCount.sold" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="w-full  bg-white border border-gray-200 rounded-lg shadow">
+                    <div class="flex flex-col items-center pb-10 pt-10">
+                        <DashboardTransactionCard title="Restocked Products" :image="imageRestockProduct"
+                            :count="transactionCount.restock" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="w-full  bg-white border border-gray-200 rounded-lg shadow">
+                    <div class="flex flex-col items-center pb-10 pt-10">
+                        <DashboardTransactionCard title="Returned Products" :image="imageReturnProduct"
+                            :count="transactionCount.return" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </section>
 </template>
 
 <script setup>
@@ -57,17 +97,21 @@ import DashboardCard from '@/components/ui/DashboardCard.vue';
 import { useDashboardStore } from '@/store/dashboard';
 import { ClipboardIcon, ArchiveBoxIcon, BuildingStorefrontIcon, UserIcon } from '@heroicons/vue/24/solid';
 import { computed, onMounted } from 'vue';
+
+import imageSoldProduct from '@/assets/utility/Ecommerce web page-rafiki.svg';
+import imageRestockProduct from '@/assets/utility/Checking boxes-amico.svg';
+import imageReturnProduct from '@/assets/utility/Supermarket workers-rafiki.svg';
+
+import DashboardTransactionCard from '@/components/card/DashboardTransactionCard.vue'
 import {
-    FwbSelect,
-    FwbInput,
     FwbTable,
     FwbTableBody,
     FwbTableCell,
     FwbTableHead,
     FwbTableHeadCell,
     FwbTableRow,
-    FwbPagination
 } from 'flowbite-vue'
+import { ref } from 'vue';
 
 const dashboardStore = useDashboardStore();
 
@@ -76,7 +120,17 @@ onMounted(() => {
     dashboardStore.getData();
 });
 
+const transactionCount = ref({
+    sold: 0,
+    restock: 0,
+    return: 0
+
+})
+
 const dashboards = computed(() => {
+    transactionCount.value.sold = dashboardStore.getSummaryTransactions?.map(item => item.totalQuantity)[2]
+    transactionCount.value.restock = dashboardStore.getSummaryTransactions?.map(item => item.totalQuantity)[0]
+    transactionCount.value.return = dashboardStore.getSummaryTransactions?.map(item => item.totalQuantity)[1]
     return {
         count: [{
             name: 'Total Category',
@@ -148,7 +202,7 @@ const dashboards = computed(() => {
                     },
                 }
             }
-        }
+        },
     }
 }
 );
