@@ -33,7 +33,7 @@ const createProduct = [
     // Validate name
     check('name')
         .notEmpty().withMessage('Please add Product name')
-        .isLength({ max: 100 }).withMessage('Product name cannot exceed 100 characters'),
+        .isLength({ max: 300 }).withMessage('Product name cannot exceed 100 characters'),
 
     // Validate description (optional, but has max length)
     check('description')
