@@ -122,7 +122,8 @@
     <DetailEntityModal title="Product detail" :detail="selectedProduct" :isShowModal="modalOptions.isShowDetailModal"
         @close="toggleModal('isShowDetailModal', !modalOptions.isShowDetailModal)" />
     <!--Edit Modal-->
-    <EditEntityModal title="Edit Product" :isShowEditModal="modalOptions.isShowEditModal"
+    <EditEntityModal title="Edit Product" :isLoading="product.isLoading" :formError="product.error"
+        :isShowEditModal="modalOptions.isShowEditModal"
         @close="toggleModal('isShowEditModal', !modalOptions.isShowEditModal)" entityType="product" v-model="formData"
         @submit="onSubmit('put')" />
     <!--Delete Modal-->
