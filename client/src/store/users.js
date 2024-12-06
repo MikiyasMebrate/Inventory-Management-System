@@ -19,7 +19,7 @@ export const useUsersStore = defineStore('users', {
                 this.users = response.data;
             } catch (error) {
                 console.log('Error fetching users:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to fetch users';
             } finally {
                 this.isLoading = false;
             }
@@ -33,7 +33,7 @@ export const useUsersStore = defineStore('users', {
                 this.users.push(response.data);
             } catch (error) {
                 console.log('Error adding user:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to add user';
             } finally {
                 this.isLoading = false;
             }
@@ -55,7 +55,7 @@ export const useUsersStore = defineStore('users', {
                 }
             } catch (error) {
                 console.log('Error deleting user:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to delete user';
             } finally {
                 this.isLoading = false;
             }
@@ -77,7 +77,7 @@ export const useUsersStore = defineStore('users', {
                 }
             } catch (error) {
                 console.log('Error updating user:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to update user';
             } finally {
                 this.isLoading = false;
             }

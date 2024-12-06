@@ -20,7 +20,7 @@ export const useProductStore = defineStore('product', {
                 this.products = response.data;
             } catch (error) {
                 console.log('Error fetching products:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to fetch products';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to fetch products';
             } finally {
                 this.isLoading = false;
             }
@@ -40,7 +40,7 @@ export const useProductStore = defineStore('product', {
                 this.products.push(response.data);
             } catch (error) {
                 console.log('Error adding product:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to add product';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to add product';
             } finally {
                 this.isLoading = false;
             }
@@ -70,7 +70,7 @@ export const useProductStore = defineStore('product', {
                 }
             } catch (error) {
                 console.log('Error updating product:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to update product';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to update product';
             } finally {
                 this.isLoading = false;
             }
@@ -93,7 +93,7 @@ export const useProductStore = defineStore('product', {
                 }
             } catch (error) {
                 console.log('Error deleting product:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to delete product';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to delete product';
             } finally {
                 this.isLoading = false;
             }
@@ -119,7 +119,7 @@ export const useProductStore = defineStore('product', {
 
             } catch (error) {
                 console.log('Error sale product:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to sale product';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to sale product';
             } finally {
                 this.isLoading = false;
             }
@@ -144,7 +144,7 @@ export const useProductStore = defineStore('product', {
 
             } catch (error) {
                 console.log('Error restock product:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to restock product';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to restock product';
             } finally {
                 this.isLoading = false;
             }
@@ -169,7 +169,7 @@ export const useProductStore = defineStore('product', {
 
             } catch (error) {
                 console.log('Error return product:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || 'Failed to return product';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to return product';
             } finally {
                 this.isLoading = false;
             }

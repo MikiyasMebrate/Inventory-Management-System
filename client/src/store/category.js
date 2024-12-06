@@ -28,7 +28,7 @@ export const useCategoryStore = defineStore('category', {
                 this.categories = response.data;
             } catch (error) {
                 console.log('Error fetching categories:', error);
-                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",") || error.response?.data?.message || 'Failed to fetch categories';
             } finally {
                 this.isLoading = false;
             }
