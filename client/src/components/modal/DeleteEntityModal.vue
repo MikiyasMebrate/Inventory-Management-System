@@ -12,7 +12,8 @@
 
                 <fwb-input v-model="model._id" type="hidden" />
 
-                Are you sure you want to delete <span class="font-bold">{{ model.name }}</span> ?
+                Are you sure you want to delete <span class="font-bold">{{ model?.name || model?.firstName + " " +
+                    model?.lastName }}</span> ?
             </template>
             <template #footer>
                 <div class="flex justify-end gap-x-4">

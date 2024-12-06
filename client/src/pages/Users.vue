@@ -9,6 +9,13 @@
             <Button @click="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" title="Add User"></Button>
         </div>
 
+        <!--Messages-->
+        <div class="flex justify-center">
+            <div class="w-full md:w-1/2 ">
+                <Alert @close="clearMessage" v-if="message" :title="message" type="success" />
+            </div>
+        </div>
+
         <!--Page length option -->
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
             <fwb-select class="w-20" v-model="pageLength" :options="lengths"></fwb-select>
@@ -84,6 +91,9 @@
         <AddEntityModal title="Add User" :isLoading="usersListStore.isLoading" :formError="usersListStore.error"
             :isShowAddModal="modalOptions.isShowAddModal" @submit="onSubmit('post')"
             @close="toggleModal('isShowAddModal', !modalOptions.isShowAddModal)" entityType="users" v-model="formData" />
+        <DeleteEntityModal title="Delete User" v-model="formData" :isShowModal="modalOptions.isShowDeleteModal"
+            @submit="onSubmit('delete')" @close="toggleModal('isShowDeleteModal', !modalOptions.isShowDeleteModal)" />
+
 
     </section>
 </template>
@@ -92,6 +102,8 @@
 import Breadcrumb from '@/components/ui/Breadcrumb.vue';
 import Button from '@/components/ui/Button.vue';
 import AddEntityModal from '@/components/modal/AddEntityModal.vue';
+import DeleteEntityModal from '@/components/modal/DeleteEntityModal.vue';
+import Alert from '@/components/ui/Alert.vue';
 import { ref, reactive, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/store/auth';
 import { useUsersStore } from '@/store/users';
@@ -172,11 +184,29 @@ const onSubmit = async (type) => {
             modalOptions.value.isShowAddModal = false
             message.value = 'Successfully user added!'
         }
+    } else if (type == 'delete') {
+        response = await usersListStore.deleteUser(formData.value)
+
+        //hide edit modal
+        if (response) {
+            modalOptions.value.isShowDeleteModal = false
+            message.value = 'Successfully user removed!'
+            getFilteredItem('')
+        }
     }
 };
 
 const toggleModal = (modelName, state, id = null, operation) => {
     modalOptions.value[modelName] = state
+
+    if (id) {
+        const { _id, ...userWithoutId } = usersListStore.getById(id)
+        if (operation == 'delete') {
+            formData.value._id = _id
+            formData.value.firstName = userWithoutId.firstName
+            formData.value.lastName = userWithoutId.lastName
+        }
+    }
 }
 
 const clearMessage = () => {

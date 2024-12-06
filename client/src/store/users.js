@@ -33,7 +33,29 @@ export const useUsersStore = defineStore('users', {
                 this.users.push(response.data);
             } catch (error) {
                 console.log('Error adding user:', error);
-                this.error = error.response?.data?.message || 'Failed to add user';
+                this.error = error.response?.data?.errors.map((err) => err.msg).join(",")
+            } finally {
+                this.isLoading = false;
+            }
+
+            if (!this.error) {
+                return true
+            }
+            return false
+        },
+        async deleteUser(user) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await api.delete(`user/${user._id}`);
+                const index = this.users.filter(obj => obj._id !== user._id);
+                if (index !== -1) {
+                    this.users = index
+                }
+            } catch (error) {
+                console.log('Error deleting user:', error);
+                this.error = error.response?.data?.errors.map((err) => err.msg);
             } finally {
                 this.isLoading = false;
             }
@@ -56,6 +78,9 @@ export const useUsersStore = defineStore('users', {
                     user.email.toLowerCase().includes(search) // Check email
                 );
             });
+        },
+        getById(id) {
+            return this.users.find(user => user._id === id);
         },
         sort(col) {
             if (this.sortColumn === col) {
