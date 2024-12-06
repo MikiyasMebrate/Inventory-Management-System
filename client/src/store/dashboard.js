@@ -8,7 +8,8 @@ export const useDashboardStore = defineStore('dashboard', {
         error: null
     }),
     getters: {
-        getDashboard: (state) => state.data.dashboard
+        getDashboard: (state) => state.data.dashboard,
+        getTopCategories: (state) => state.data.topCategories
     },
     actions: {
         async getData() {
